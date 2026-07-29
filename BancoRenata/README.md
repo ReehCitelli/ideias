@@ -40,4 +40,4 @@ python banco_da_renata.py
 
 ## 👩‍💻 Autora
 
-Desenvolvido por **Renata** ([@renatacitelli](https://instagram.com/renatacitelli)) como parte dos estudos de lógica de programação em Python.
+Desenvolvido por **Renata** ([@ReehCitelli](https://instagram.com/renatacitelli)) como parte dos estudos de lógica de programação em Python.
