@@ -19,7 +19,7 @@ Landing page de página única, mobile-first, em **um único arquivo HTML autoco
 |---|---|
 | `index.html` | **O site inteiro.** É este arquivo que você publica. |
 | `google-apps-script/Codigo.gs` | Código que recebe o formulário e grava na Planilha Google. |
-| `LEIA-ME.md` | Este guia. |
+| `readme.md` | Este guia. |
 
 > Se você rodar `npm run build`, o resultado em `dist/index.html` é exatamente o mesmo
 > site (arquivo único). Pode publicar qualquer um dos dois.
@@ -242,3 +242,6 @@ por não fazerem sentido para uma loja de peças:
 Aproveitado da referência: tema escuro com destaque verde (no lugar do laranja),
 carrossel de depoimentos interativo, navbar com blur ao rolar, scroll suave,
 animações de entrada discretas e menu hambúrguer no mobile.
+
+Veja o site
+https://reehcitelli.github.io/ideias/lparenaopa/index.html
