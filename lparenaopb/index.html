@@ -1,0 +1,1543 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <!--
+    ============================================================================
+    NÚCLEO MOTOPEÇAS E ACESSÓRIOS — Campinas/SP
+    Landing page em ARQUIVO ÚNICO (HTML + CSS + JS embutidos).
+    Sem frameworks, sem build, sem dependências externas — funciona abrindo
+    direto no navegador, mesmo com internet fraca.
+
+    ONDE EDITAR AS INFORMAÇÕES PRINCIPAIS:
+    Procure por "CONFIGURAÇÃO DA LOJA" dentro do <script> no fim deste arquivo
+    (telefone, WhatsApp, CTA principal e URL de envio do formulário).
+
+    O formulário envia os dados para uma planilha do Google Sheets via
+    Google Apps Script. O código e o passo a passo de implantação estão na
+    pasta: apps-script/  (Codigo.gs + COMO-IMPLANTAR.md)
+    ============================================================================
+  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Núcleo Motopeças e Acessórios | Peças de Moto em Campinas-SP</title>
+  <meta name="description" content="Loja de peças e acessórios para moto em Campinas-SP. Estoque grande: peças de motor, freio, elétrica, suspensão e mais. Atendimento rápido para quem vive sobre duas rodas. Ligue: (19) 3276-7035." />
+  <meta name="theme-color" content="#050807" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b110e'/%3E%3Crect x='14' y='46' width='36' height='8' rx='2' fill='%231ec864'/%3E%3Ctext x='32' y='40' font-family='Arial,sans-serif' font-size='30' font-weight='800' fill='%23eef4f0' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:title" content="Núcleo Motopeças e Acessórios | Peças de Moto em Campinas-SP" />
+  <meta property="og:description" content="Estoque grande de peças de moto: motor, freio, elétrica, suspensão e mais. Atendimento rápido para quem vive sobre duas rodas. Ligue: (19) 3276-7035." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoPartsStore",
+    "name": "Núcleo Motopeças e Acessórios",
+    "description": "Loja de peças e acessórios para motos em Campinas-SP.",
+    "telephone": "+55-19-3276-7035",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Campinas",
+      "addressRegion": "SP",
+      "addressCountry": "BR"
+    }
+  }
+  </script>
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <style>
+    /* ==========================================================
+       1. TOKENS E RESET
+    ========================================================== */
+    :root{
+      --fundo:#050807;
+      --fundo-2:#070c09;
+      --painel:#0c120e;
+      --painel-2:#0a0f0c;
+      --borda:rgba(255,255,255,.08);
+      --borda-forte:rgba(255,255,255,.16);
+      --texto:#eef4f0;
+      --texto-2:#b7c6bd;
+      --texto-3:#87998e;
+      --verde:#1ec864;
+      --verde-claro:#4ee389;
+      --verde-escuro:#0f7a3d;
+      --tinta:#04140b;
+      --raio:18px;
+      --raio-p:12px;
+      --sombra-card:0 24px 55px -32px rgba(0,0,0,.95);
+      --fonte:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:86px}
+    body{
+      font-family:var(--fonte);
+      background:var(--fundo);
+      color:var(--texto);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      overflow-x:hidden;
+    }
+    img,svg{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;cursor:pointer}
+    ::selection{background:rgba(30,200,100,.35);color:#fff}
+    :focus-visible{outline:2px solid var(--verde-claro);outline-offset:3px;border-radius:6px}
+    [hidden]{display:none!important}
+
+    ::-webkit-scrollbar{width:10px}
+    ::-webkit-scrollbar-track{background:var(--fundo)}
+    ::-webkit-scrollbar-thumb{background:#1b2620;border-radius:99px;border:2px solid var(--fundo)}
+
+    /* ==========================================================
+       2. UTILITÁRIOS
+    ========================================================== */
+    .molde{width:min(1120px,100% - 40px);margin-inline:auto}
+    .secao{padding-block:clamp(72px,10vw,118px);position:relative}
+    .secao-alt{background:var(--fundo-2);border-block:1px solid var(--borda)}
+
+    .rotulo{
+      display:inline-flex;align-items:center;gap:.6rem;
+      font-size:.76rem;font-weight:700;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--verde-claro);
+    }
+    .rotulo::before{content:"";width:22px;height:2px;background:var(--verde);border-radius:99px}
+
+    .titulo-sec{
+      font-size:clamp(1.7rem,2.6vw + .6rem,2.5rem);
+      line-height:1.12;letter-spacing:-.02em;font-weight:800;
+      margin-top:.9rem;
+    }
+    .sub-sec{color:var(--texto-2);max-width:36rem;margin-top:.9rem;font-size:1.02rem}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+      font-weight:700;font-size:.95rem;line-height:1.2;
+      border-radius:var(--raio-p);padding:.95rem 1.45rem;
+      border:1px solid transparent;
+      transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease,filter .22s ease;
+        -webkit-tap-highlight-color:transparent;
+      white-space:nowrap;
+    }
+    .btn svg{width:19px;height:19px;flex:none}
+    .btn-verde{
+      background:linear-gradient(180deg,#2ad873,#15b35c);
+      color:var(--tinta);
+      box-shadow:0 10px 28px -10px rgba(30,200,100,.55),inset 0 1px 0 rgba(255,255,255,.28);
+    }
+    .btn-verde:hover{transform:translateY(-2px);filter:brightness(1.06);box-shadow:0 16px 34px -10px rgba(30,200,100,.6),inset 0 1px 0 rgba(255,255,255,.28)}
+    .btn-verde:active{transform:translateY(0)}
+    .btn-contorno{
+      background:rgba(255,255,255,.03);
+      border-color:var(--borda-forte);color:var(--texto);
+    }
+    .btn-contorno:hover{border-color:rgba(30,200,100,.5);background:rgba(30,200,100,.07);transform:translateY(-2px)}
+
+    .modo{display:inline-flex;align-items:center;gap:.5rem}
+    .modo-whatsapp{display:none}
+    body.cta-whatsapp .modo-ligar{display:none}
+    body.cta-whatsapp .modo-whatsapp{display:inline-flex}
+    .icone-wa{display:none}
+    body.cta-whatsapp .icone-ligar{display:none}
+    body.cta-whatsapp .icone-wa{display:inline-flex}
+
+    /* padrão xadrez (bandeira de corrida) */
+    .xadrez{background:repeating-conic-gradient(#eef4f0 0 25%,transparent 0 50%) 0 0/14px 14px}
+    .faixa-xadrez{
+      height:8px;opacity:.16;
+      background:repeating-conic-gradient(#eef4f0 0 25%,transparent 0 50%) 0 0/10px 10px;
+    }
+
+    /* placeholder bem visível para dados não confirmados */
+    .placeholder{
+      display:inline-block;
+      background:rgba(224,190,92,.1);
+      border:1px dashed rgba(224,190,92,.55);
+      color:#ecd08f;
+      border-radius:6px;padding:.05em .45em;
+      font-size:.92em;font-weight:600;
+    }
+
+    .pular-link{
+      position:absolute;left:-9999px;top:0;z-index:100;
+      background:var(--verde);color:var(--tinta);
+      font-weight:700;padding:.8rem 1.2rem;border-radius:0 0 10px 0;
+    }
+    .pular-link:focus{left:0}
+
+    /* animações de entrada (só quando JS ativo) */
+    .js [data-animate]{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+    .js [data-animate].in{opacity:1;transform:none}
+
+    /* ==========================================================
+       3. CABEÇALHO / NAVEGAÇÃO
+    ========================================================== */
+    .navegacao{
+      position:fixed;inset:0 0 auto 0;z-index:80;
+      border-bottom:1px solid transparent;
+      transition:background .3s ease,border-color .3s ease,box-shadow .3s ease,backdrop-filter .3s ease;
+    }
+    .navegacao.rolada{
+      background:rgba(5,8,7,.84);
+      -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+      border-bottom-color:var(--borda);
+      box-shadow:0 12px 34px -20px rgba(0,0,0,.9);
+    }
+    .navegacao-linha{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:68px}
+
+    .marca{display:inline-flex;align-items:center;gap:.7rem;min-width:0}
+    .marca-icone{
+      width:42px;height:42px;flex:none;border-radius:11px;overflow:hidden;
+      border:1px solid rgba(30,200,100,.45);
+      background:linear-gradient(160deg,#101a14,#0a0f0c);
+      box-shadow:0 6px 18px -8px rgba(30,200,100,.35);
+    }
+    .marca-texto{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+    .marca-texto strong{font-size:1.02rem;font-weight:800;letter-spacing:.05em}
+    .marca-texto small{font-size:.52rem;font-weight:700;letter-spacing:.2em;color:var(--verde-claro);white-space:nowrap}
+
+    .links-desktop{display:flex;align-items:center;gap:1.9rem}
+    .links-desktop a{
+      font-size:.92rem;font-weight:600;color:var(--texto-2);
+      transition:color .2s ease;position:relative;
+    }
+    .links-desktop a::after{
+      content:"";position:absolute;left:0;right:100%;bottom:-6px;height:2px;
+      background:var(--verde);border-radius:99px;transition:right .28s ease;
+    }
+    .links-desktop a:hover{color:var(--texto)}
+    .links-desktop a:hover::after{right:0}
+
+    .btn-nav{padding:.62rem 1.05rem;font-size:.88rem}
+
+    /* hambúrguer */
+    .menu-botao{
+      display:none;width:46px;height:46px;border-radius:11px;
+      border:1px solid var(--borda-forte);background:rgba(255,255,255,.04);
+      position:relative;z-index:90;
+    }
+    .menu-botao span{
+      position:absolute;left:13px;right:13px;height:2px;border-radius:99px;
+      background:var(--texto);transition:transform .3s ease,opacity .25s ease,top .3s ease;
+    }
+    .menu-botao span:nth-child(1){top:17px}
+    .menu-botao span:nth-child(2){top:23px}
+    .menu-botao span:nth-child(3){top:29px}
+    .menu-botao.aberto span:nth-child(1){top:23px;transform:rotate(45deg)}
+    .menu-botao.aberto span:nth-child(2){opacity:0}
+    .menu-botao.aberto span:nth-child(3){top:23px;transform:rotate(-45deg)}
+
+    .menu-mobile{
+      position:fixed;inset:0;z-index:70;
+      padding:96px 26px 34px;
+      background:rgba(5,8,7,.97);
+      -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+      display:flex;flex-direction:column;gap:.2rem;
+      opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease;
+    }
+    .menu-mobile.aberto{opacity:1;visibility:visible}
+    .menu-mobile nav{display:flex;flex-direction:column}
+    .menu-mobile nav a{
+      font-size:1.35rem;font-weight:800;letter-spacing:-.01em;
+      padding:1.05rem 0;border-bottom:1px solid var(--borda);
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .menu-mobile nav a svg{width:20px;height:20px;color:var(--verde-claro)}
+    .menu-mobile-cta{margin-top:auto;display:grid;gap:.7rem}
+    .menu-mobile-cta .btn{width:100%;padding:1.05rem 1.2rem}
+    .menu-mobile-nota{font-size:.8rem;color:var(--texto-3);text-align:center}
+
+    body.menu-aberto{overflow:hidden}
+
+    /* ==========================================================
+       4. HERO
+    ========================================================== */
+    .hero{position:relative;overflow:hidden;padding:clamp(128px,18vh,168px) 0 clamp(56px,8vw,88px)}
+    .hero::before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:
+        radial-gradient(720px 420px at 12% -5%,rgba(30,200,100,.14),transparent 62%),
+        radial-gradient(620px 400px at 95% 18%,rgba(30,200,100,.07),transparent 60%);
+    }
+    .hero::after{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+      background-size:46px 46px;
+      -webkit-mask-image:radial-gradient(ellipse 92% 82% at 50% -6%,#000 28%,transparent 72%);
+      mask-image:radial-gradient(ellipse 92% 82% at 50% -6%,#000 28%,transparent 72%);
+    }
+    .hero .molde{position:relative;z-index:1}
+
+    .hero-grade{
+      display:grid;grid-template-columns:1.05fr .95fr;
+      gap:clamp(36px,5vw,64px);align-items:center;
+    }
+
+    .badge{
+      display:inline-flex;align-items:center;gap:.6rem;
+      border:1px solid rgba(30,200,100,.35);background:rgba(30,200,100,.09);
+      color:#c8f2d8;border-radius:999px;padding:.42rem .95rem;
+      font-size:.78rem;font-weight:700;letter-spacing:.03em;
+    }
+    .badge .quad{width:11px;height:11px;background:repeating-conic-gradient(var(--verde-claro) 0 25%,transparent 0 50%) 0 0/11px 11px;border-radius:2.5px;flex:none}
+
+    .hero h1{
+      font-size:clamp(2.35rem,5.2vw + .6rem,4rem);
+      line-height:1.04;letter-spacing:-.03em;font-weight:800;
+      margin-top:1.15rem;
+    }
+    .destaque{
+      background:linear-gradient(92deg,#5cf09a,#1ec864 60%,#12a45a);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .hero-sub{color:var(--texto-2);max-width:33rem;margin-top:1.15rem;font-size:clamp(1rem,.4vw + .9rem,1.12rem)}
+    .hero-sub strong{color:var(--texto);font-weight:700}
+
+    .hero-acoes{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:1.9rem}
+    .btn-hero{padding:1.05rem 1.5rem}
+    .texto-cta{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25;text-align:left}
+    .texto-cta small{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+    .texto-cta strong{font-size:1.06rem;font-weight:800}
+
+    .hero-lascas{display:flex;flex-wrap:wrap;gap:.45rem .4rem;margin-top:1.7rem;list-style:none}
+    .hero-lascas li{
+      display:inline-flex;align-items:center;gap:.45rem;
+      font-size:.82rem;font-weight:600;color:var(--texto-3);
+      padding:.34rem .2rem;
+    }
+    .hero-lascas i{
+      width:9px;height:9px;flex:none;border-radius:2px;
+      background:repeating-conic-gradient(rgba(78,227,137,.9) 0 25%,transparent 0 50%) 0 0/9px 9px;
+    }
+    .hero-lascas li:last-child{color:var(--verde-claro)}
+
+    /* --- painel ilustrado (SVG próprio, sem fotos externas) --- */
+    .painel-moto{
+      position:relative;width:100%;max-width:560px;margin-inline:auto;
+      border:1px solid var(--borda);border-radius:22px;overflow:hidden;
+      background:linear-gradient(180deg,#0d1410,#080d0a);
+      box-shadow:var(--sombra-card),0 0 0 1px rgba(30,200,100,.05);
+    }
+    .painel-bandeira{
+      height:13px;
+      background:repeating-conic-gradient(#eef4f0 0 25%,#0a0f0c 0 50%) 0 0/13px 13px;
+      opacity:.92;
+      border-bottom:1px solid rgba(30,200,100,.3);
+    }
+    .palco{position:relative;padding:46px 26px 26px;background:
+      radial-gradient(420px 220px at 50% 78%,rgba(30,200,100,.1),transparent 70%);
+    }
+    .moto-svg{width:100%;height:auto;color:#a9f5c8}
+    .moto-grupo{animation:suspenso 4.5s ease-in-out infinite}
+    .vel{stroke-dasharray:18 14;animation:correr 1.05s linear infinite}
+    .v2{animation-delay:.16s}
+    .v3{animation-delay:.32s}
+    @keyframes correr{to{stroke-dashoffset:-32}}
+    @keyframes suspenso{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+    .placa{
+      position:absolute;top:20px;right:20px;
+      width:54px;height:54px;border-radius:50%;
+      background:#eef4f0;color:#04140b;
+      display:grid;place-items:center;
+      font-weight:900;font-size:1.45rem;letter-spacing:-.02em;
+      border:3px solid #0a0f0c;box-shadow:inset 0 0 0 2px #eef4f0,0 10px 22px -8px rgba(0,0,0,.85);
+      transform:rotate(-7deg);
+    }
+    .flutante{
+      position:absolute;display:inline-flex;align-items:center;gap:.45rem;
+      background:rgba(13,20,16,.92);border:1px solid rgba(30,200,100,.3);
+      border-radius:10px;padding:.45rem .8rem;
+      font-size:.78rem;font-weight:700;color:#d7f5e3;
+      box-shadow:0 12px 30px -12px rgba(0,0,0,.75);
+      animation:flutuar 5s ease-in-out infinite;
+    }
+    .flutante i{width:9px;height:9px;flex:none;border-radius:2px;background:repeating-conic-gradient(var(--verde-claro) 0 25%,transparent 0 50%) 0 0/9px 9px}
+    .f1{top:24px;left:22px}
+    .f2{top:42%;right:18px;animation-delay:1.1s}
+    .f3{bottom:18px;left:24px;animation-delay:2.2s}
+    .f4{bottom:40px;right:22px;animation-delay:3s}
+    @keyframes flutuar{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+    .painel-pe{
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      border-top:1px solid var(--borda);padding:15px 22px;
+    }
+    .rotulo-pe{display:block;font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--verde-claro)}
+    .painel-pe strong{font-size:.95rem;font-weight:800}
+    .mini-xadrez{width:64px;height:10px;flex:none;opacity:.4;border-radius:2px;background:repeating-conic-gradient(#eef4f0 0 25%,transparent 0 50%) 0 0/10px 10px}
+
+    /* ==========================================================
+       5. LETREIRO (MARQUEE)
+    ========================================================== */
+    .letreiro{
+      overflow:hidden;border-block:1px solid var(--borda);
+      background:var(--fundo-2);
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    }
+    .letreiro-trilha{display:flex;width:max-content;animation:deslizar 26s linear infinite}
+    .letreiro-trilha > div{display:flex;align-items:center;gap:2.4rem;padding:.95rem 2.4rem .95rem 0}
+    .letreiro-trilha span{
+      font-size:.78rem;font-weight:800;letter-spacing:.22em;
+      color:var(--texto-3);white-space:nowrap;
+    }
+    .letreiro-trilha i{width:9px;height:9px;flex:none;border-radius:2px;background:repeating-conic-gradient(rgba(78,227,137,.8) 0 25%,transparent 0 50%) 0 0/9px 9px}
+    @keyframes deslizar{to{transform:translateX(-50%)}}
+
+    /* ==========================================================
+       6. DIFERENCIAIS
+    ========================================================== */
+    .grade-cartoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1.1rem;margin-top:3rem}
+    .cartao{
+      position:relative;padding:26px 22px 24px;
+      border:1px solid var(--borda);border-radius:var(--raio);
+      background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+      transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
+      overflow:hidden;
+    }
+    .cartao::before{
+      content:"";position:absolute;top:0;left:22px;right:22px;height:2px;border-radius:99px;
+      background:linear-gradient(90deg,transparent,rgba(30,200,100,.75),transparent);
+      opacity:0;transition:opacity .35s ease;
+    }
+    .cartao:hover{transform:translateY(-4px);border-color:rgba(30,200,100,.35);box-shadow:var(--sombra-card)}
+    .cartao:hover::before{opacity:1}
+    .cartao .num{position:absolute;top:18px;right:20px;font-size:.78rem;font-weight:800;letter-spacing:.1em;color:rgba(255,255,255,.16)}
+    .cartao-icone{
+      width:46px;height:46px;border-radius:13px;display:grid;place-items:center;
+      background:rgba(30,200,100,.12);border:1px solid rgba(30,200,100,.28);
+      color:var(--verde-claro);margin-bottom:1.1rem;
+    }
+    .cartao-icone svg{width:23px;height:23px}
+    .cartao h3{font-size:1.08rem;font-weight:800;letter-spacing:-.01em}
+    .cartao p{color:var(--texto-2);font-size:.92rem;margin-top:.5rem}
+
+    .nota-box{
+      display:flex;gap:.9rem;align-items:flex-start;
+      margin-top:1.6rem;padding:1rem 1.15rem;
+      border:1px solid var(--borda);border-radius:var(--raio-p);
+      background:rgba(255,255,255,.025);
+      color:var(--texto-2);font-size:.88rem;
+    }
+    .nota-box svg{width:20px;height:20px;flex:none;color:var(--verde-claro);margin-top:.15rem}
+
+    .lascas-bloco{margin-top:3.2rem}
+    .lascas-bloco .lascas-rotulo{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--texto-3);margin-bottom:1rem}
+    .lascas{display:flex;flex-wrap:wrap;gap:.6rem}
+    .lasca{
+      display:inline-flex;align-items:center;gap:.5rem;
+      border:1px solid var(--borda);background:rgba(255,255,255,.03);
+      padding:.55rem .95rem;border-radius:999px;
+      font-size:.88rem;font-weight:600;color:var(--texto-2);
+      transition:border-color .25s ease,color .25s ease,transform .25s ease;
+    }
+    .lasca:hover{border-color:rgba(30,200,100,.45);color:var(--texto);transform:translateY(-2px)}
+    .lasca i{width:9px;height:9px;flex:none;border-radius:2px;background:repeating-conic-gradient(var(--verde-claro) 0 25%,transparent 0 50%) 0 0/9px 9px}
+    .lasca-mais{border-style:dashed;color:var(--verde-claro)}
+
+    /* ==========================================================
+       7. DEPOIMENTOS (CARROSSEL)
+    ========================================================== */
+    .depo-Nota{font-size:.78rem;color:var(--texto-3);margin-top:.7rem}
+    .depo-Nota em{font-style:normal;color:#d8c48a}
+
+    .carrossel{margin-top:2.6rem}
+    .janela{overflow:hidden;touch-action:pan-y}
+    .pista{display:flex;transition:transform .55s cubic-bezier(.22,.7,.25,1)}
+    .slide{min-width:100%;padding:2px}
+    .cartao-depo{
+      max-width:780px;margin-inline:auto;position:relative;
+      background:linear-gradient(180deg,#0e1511,#0b110d);
+      border:1px solid var(--borda);border-radius:24px;
+      padding:clamp(28px,5vw,46px);
+      box-shadow:var(--sombra-card);
+    }
+    .aspa{width:38px;height:38px;color:var(--verde);opacity:.9;margin-bottom:1.1rem}
+    .depo-texto{font-size:clamp(1.05rem,1.6vw,1.22rem);line-height:1.6;font-weight:500;color:var(--texto)}
+    .depo-rodape{display:flex;align-items:center;gap:.9rem;margin-top:1.6rem}
+    .avatar{
+      width:46px;height:46px;flex:none;border-radius:50%;
+      display:grid;place-items:center;font-weight:800;font-size:1rem;
+      color:var(--tinta);background:linear-gradient(135deg,#4ee389,#12a45a);
+    }
+    .depo-rodape strong{display:block;font-size:.95rem;font-weight:800}
+    .depo-rodape small{color:var(--texto-3);font-size:.8rem;font-weight:600}
+
+    .controles{display:flex;align-items:center;justify-content:center;gap:1.1rem;margin-top:1.9rem}
+    .seta{
+      width:46px;height:46px;border-radius:50%;
+      border:1px solid var(--borda-forte);background:rgba(255,255,255,.04);
+      color:var(--texto);display:grid;place-items:center;
+      transition:border-color .25s ease,color .25s ease,background .25s ease,transform .25s ease;
+    }
+    .seta:hover{border-color:rgba(30,200,100,.55);color:var(--verde-claro);background:rgba(30,200,100,.08);transform:translateY(-2px)}
+    .seta svg{width:20px;height:20px}
+    .pontos{display:flex;gap:.55rem}
+    .ponto{
+      width:9px;height:9px;border-radius:99px;border:none;padding:0;
+      background:rgba(255,255,255,.18);
+      transition:width .3s ease,background .3s ease;
+    }
+    .ponto.ativo{width:28px;background:var(--verde)}
+
+    /* ==========================================================
+       8. CONTATO
+    ========================================================== */
+    .contato-grade{display:grid;grid-template-columns:1.15fr .85fr;gap:1.4rem;margin-top:3rem;align-items:start}
+
+    .cartao-form,.cartao-info{
+      border-radius:24px;padding:clamp(24px,4vw,36px);
+      border:1px solid var(--borda);
+      box-shadow:var(--sombra-card);
+    }
+    .cartao-form{background:linear-gradient(180deg,#0d1410,#0a0f0c)}
+    .cartao-form h3,.cartao-info h3{font-size:1.25rem;font-weight:800;letter-spacing:-.01em}
+    .cartao-form > p{color:var(--texto-2);font-size:.92rem;margin-top:.4rem}
+
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.6rem}
+    .campo{display:flex;flex-direction:column;gap:.4rem}
+    .campo-largo{grid-column:1/-1}
+    .campo label{font-size:.85rem;font-weight:700;color:var(--texto-2)}
+    .campo label span{color:var(--verde-claro)}
+    .campo input,.campo textarea{
+      width:100%;background:#0a0f0c;color:var(--texto);
+      border:1px solid var(--borda);border-radius:var(--raio-p);
+      padding:.85rem 1rem;font:inherit;font-size:1rem;
+      transition:border-color .2s ease,box-shadow .2s ease;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .campo textarea{min-height:118px;resize:vertical}
+    .campo input::placeholder,.campo textarea::placeholder{color:var(--texto-3)}
+    .campo input:focus,.campo textarea:focus{
+      outline:none;border-color:rgba(30,200,100,.65);
+      box-shadow:0 0 0 3px rgba(30,200,100,.16);
+    }
+    .campo.invalido input,.campo.invalido textarea{border-color:rgba(255,110,110,.7);box-shadow:0 0 0 3px rgba(255,110,110,.12)}
+    .aviso-campo{font-size:.78rem;color:#ff9d9d;font-weight:600;min-height:0;display:none}
+    .campo.invalido .aviso-campo{display:block}
+    .dica{grid-column:1/-1;font-size:.8rem;color:var(--texto-3)}
+    .dica strong{color:var(--texto-2)}
+
+    .armadilha{position:absolute!important;left:-10000px!important;top:-10000px!important;opacity:0!important;height:0!important;overflow:hidden!important}
+
+    .form-acao{margin-top:1.5rem;display:grid;gap:.9rem}
+    .btn-form{width:100%;padding:1.05rem 1.4rem;font-size:1rem}
+    .giro{
+      display:none;width:18px;height:18px;flex:none;
+      border:2.5px solid rgba(4,20,11,.3);border-top-color:var(--tinta);
+      border-radius:50%;animation:girar .7s linear infinite;
+    }
+    .btn.carregando .giro{display:inline-block}
+    .btn.carregando svg{display:none}
+    @keyframes girar{to{transform:rotate(360deg)}}
+
+    .msg{display:flex;gap:.7rem;align-items:flex-start;border-radius:var(--raio-p);padding:.95rem 1.05rem;font-size:.9rem;font-weight:600}
+    .msg svg{width:20px;height:20px;flex:none;margin-top:.1rem}
+    .msg-ok{background:rgba(30,200,100,.1);border:1px solid rgba(30,200,100,.4);color:#c9f3d9}
+    .msg-ok svg{color:var(--verde-claro)}
+    .msg-erro{background:rgba(255,110,110,.08);border:1px solid rgba(255,110,110,.4);color:#ffd2d2}
+    .msg-erro svg{color:#ff9d9d}
+
+    .cartao-info{
+      background:linear-gradient(180deg,rgba(30,200,100,.09),rgba(30,200,100,.02));
+      border-color:rgba(30,200,100,.22);
+      display:grid;gap:1.15rem;
+    }
+    .cartao-info > p{color:var(--texto-2);font-size:.92rem;margin-top:-.7rem}
+    .cartao-info .btn{width:100%;padding:1.05rem 1.2rem}
+    .info-lista{display:grid;gap:1rem;border-top:1px solid var(--borda);padding-top:1.2rem}
+    .info-item{display:flex;gap:.85rem;align-items:flex-start}
+    .info-item svg{width:19px;height:19px;flex:none;color:var(--verde-claro);margin-top:.2rem}
+    .info-item span{display:block;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--texto-3)}
+    .info-item p{font-size:.95rem;font-weight:600}
+    .info-item a:hover{color:var(--verde-claro)}
+
+    /* ==========================================================
+       9. RODAPÉ
+    ========================================================== */
+    .rodape{border-top:1px solid var(--borda);background:var(--fundo-2)}
+    .rodape-xadrez{height:10px;opacity:.14;background:repeating-conic-gradient(#eef4f0 0 25%,transparent 0 50%) 0 0/10px 10px}
+    .rodape-grade{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:2.6rem;padding:3.4rem 0 2.4rem}
+    .rodape-tag{color:var(--texto-2);font-size:.92rem;max-width:26rem;margin-top:1rem}
+    .rodape h4{font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--texto-3);margin-bottom:1.05rem}
+    .rodape-lista{list-style:none;display:grid;gap:.75rem}
+    .rodape-lista a,.rodape-lista li{color:var(--texto-2);font-size:.92rem}
+    .rodape-lista a:hover{color:var(--verde-claro)}
+    .rodape-lista svg{width:17px;height:17px;flex:none;color:var(--verde-claro);margin-top:.2rem}
+    .rodape-lista .item-icone{display:flex;gap:.6rem;align-items:flex-start}
+    .rodape-nota{font-size:.8rem;color:var(--texto-3);border-top:1px solid var(--borda);padding-top:1.2rem;margin-top:.4rem}
+    .rodape-base{
+      border-top:1px solid var(--borda);
+      padding:1.4rem 0 1.6rem;
+      display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between;
+      font-size:.82rem;color:var(--texto-3);
+    }
+
+    /* ==========================================================
+       10. BARRA FIXA MOBILE
+    ========================================================== */
+    .barra-mobile{
+      position:fixed;left:0;right:0;bottom:0;z-index:60;
+      display:none;gap:.65rem;
+      padding:.65rem .9rem calc(.65rem + env(safe-area-inset-bottom));
+      background:rgba(5,8,7,.93);
+      -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+      border-top:1px solid var(--borda);
+      transition:transform .35s ease;
+    }
+    .barra-mobile .btn-verde{flex:1 1 auto;padding:.9rem 1rem}
+    .barra-mobile .btn-contorno{padding:.9rem 1.05rem}
+    body.sem-barra .barra-mobile{transform:translateY(110%)}
+
+    /* ==========================================================
+       11. RESPONSIVO
+    ========================================================== */
+    @media (max-width:1020px){
+      .hero-grade{grid-template-columns:1fr;gap:2.8rem}
+      .painel-moto{max-width:600px}
+      .contato-grade{grid-template-columns:1fr}
+    }
+    @media (max-width:860px){
+      .links-desktop,.navegacao .btn-nav{display:none}
+      .menu-botao{display:block}
+      .rodape-grade{grid-template-columns:1fr;gap:2.2rem}
+    }
+    @media (max-width:640px){
+      .molde{width:min(1120px,100% - 36px)}
+      .form-grid{grid-template-columns:1fr}
+      .hero-acoes .btn{flex:1 1 100%}
+      .hero-acoes .btn-contorno{flex:1 1 100%}
+      .placa{width:46px;height:46px;font-size:1.2rem;top:16px;right:14px}
+      .f2{display:none}
+      .depo-texto{font-size:1rem}
+    }
+    @media (max-width:767px){
+      body{padding-bottom:74px}
+      .barra-mobile{display:flex}
+      .barra-mobile .modo{font-size:.92rem}
+    }
+    @media (min-width:768px){
+      .barra-mobile{display:none}
+    }
+
+    /* movimento reduzido */
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation:none!important;transition:none!important}
+      .js [data-animate]{opacity:1!important;transform:none!important}
+    }
+  </style>
+</head>
+<body>
+
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ============================================================
+       SPRITE SVG (ícones originais — nenhum arquivo externo)
+  ============================================================ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="moto" viewBox="0 0 100 60">
+        <g fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="20" cy="44" r="13"/>
+          <circle cx="80" cy="44" r="13"/>
+          <path d="M20 44 L45 38"/>
+          <path d="M80 44 L64 14"/>
+          <path d="M64 14 L56 7"/>
+          <path d="M10 27 L26 21 L44 23 L55 19 L64 14"/>
+          <path d="M13 36 L30 32 L45 38"/>
+          <path d="M34 46 L56 44"/>
+        </g>
+        <g fill="currentColor">
+          <circle cx="20" cy="44" r="3"/>
+          <circle cx="80" cy="44" r="3"/>
+        </g>
+      </symbol>
+
+      <symbol id="i-telefone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92Z"/>
+      </symbol>
+
+      <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+      </symbol>
+
+      <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </symbol>
+
+      <symbol id="i-caixa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        <path d="m3.29 7 8.71 5 8.71-5"/>
+        <path d="M12 22V12"/>
+      </symbol>
+
+      <symbol id="i-medalha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="6"/>
+        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+      </symbol>
+
+      <symbol id="i-alvo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <circle cx="12" cy="12" r="6"/>
+        <circle cx="12" cy="12" r="2"/>
+      </symbol>
+
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
+        <circle cx="12" cy="10" r="3"/>
+      </symbol>
+
+      <symbol id="i-relogio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </symbol>
+
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="20" height="16" x="2" y="4" rx="2"/>
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+      </symbol>
+
+      <symbol id="i-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14"/>
+        <path d="m12 5 7 7-7 7"/>
+      </symbol>
+
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6 9 17l-5-5"/>
+      </symbol>
+
+      <symbol id="i-aspa" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+        <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
+        <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/>
+      </symbol>
+
+      <symbol id="i-chev-esq" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 18-6-6 6-6"/>
+      </symbol>
+
+      <symbol id="i-chev-dir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m9 18 6-6-6-6"/>
+      </symbol>
+
+      <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 16v-4"/>
+        <path d="M12 8h.01"/>
+      </symbol>
+
+      <symbol id="i-alerta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4"/>
+        <path d="M12 16h.01"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ============================================================
+       CABEÇALHO
+  ============================================================ -->
+  <header id="cabecalho" class="navegacao">
+    <div class="molde navegacao-linha">
+      <!-- LOGO PROVISÓRIO em SVG (verde/branco + bandeira quadriculada + moto).
+           Substituir pelo arquivo do logo real quando disponível. -->
+      <a href="#inicio" class="marca" aria-label="Núcleo Motopeças e Acessórios — voltar ao início">
+        <span class="marca-icone" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img" aria-hidden="true">
+            <rect x="1" y="1" width="46" height="46" rx="11" fill="none" stroke="rgba(30,200,100,.4)" stroke-width="2"/>
+            <rect x="7" y="7" width="34" height="9" rx="2" fill="url(#xadrez-logo)"/>
+            <use href="#moto" x="8" y="20" width="32" height="19.2" color="#eef4f0"/>
+            <defs>
+              <pattern id="xadrez-logo" width="9" height="9" patternUnits="userSpaceOnUse">
+                <rect width="4.5" height="4.5" fill="#eef4f0"/>
+                <rect x="4.5" y="4.5" width="4.5" height="4.5" fill="#eef4f0"/>
+              </pattern>
+            </defs>
+          </svg>
+        </span>
+        <span class="marca-texto">
+          <strong>NÚCLEO</strong>
+          <small>MOTOPEÇAS E ACESSÓRIOS</small>
+        </span>
+      </a>
+
+      <nav class="links-desktop" aria-label="Navegação principal">
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <a class="btn btn-verde btn-nav" data-cta-principal data-telefone-link href="tel:+551932767035">
+        <span class="modo modo-ligar"><svg aria-hidden="true"><use href="#i-telefone"/></svg>Ligar agora</span>
+        <span class="modo modo-whatsapp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</span>
+      </a>
+
+      <button id="botao-menu" class="menu-botao" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-mobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Menu mobile -->
+    <div id="menu-mobile" class="menu-mobile">
+      <nav aria-label="Menu">
+        <a href="#inicio">Início <svg aria-hidden="true"><use href="#i-seta"/></svg></a>
+        <a href="#diferenciais">Diferenciais <svg aria-hidden="true"><use href="#i-seta"/></svg></a>
+        <a href="#depoimentos">Depoimentos <svg aria-hidden="true"><use href="#i-seta"/></svg></a>
+        <a href="#contato">Contato <svg aria-hidden="true"><use href="#i-seta"/></svg></a>
+      </nav>
+      <div class="menu-mobile-cta">
+        <a class="btn btn-verde" data-cta-principal data-telefone-link href="tel:+551932767035">
+          <span class="modo modo-ligar"><svg aria-hidden="true"><use href="#i-telefone"/></svg>Ligar agora</span>
+          <span class="modo modo-whatsapp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Chamar no WhatsApp</span>
+        </a>
+        <a class="btn btn-contorno" href="#contato"><svg aria-hidden="true"><use href="#i-seta"/></svg>Pedir peça pelo site</a>
+        <p class="menu-mobile-nota">Peças de moto · Campinas/SP</p>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ==========================================================
+         HERO
+    ========================================================== -->
+    <section id="inicio" class="hero">
+      <div class="molde">
+        <div class="hero-grade">
+          <div>
+            <span class="badge" data-animate><i class="quad" aria-hidden="true"></i>Peças de moto · Campinas/SP</span>
+            <h1 data-animate style="--d:90ms">Sua moto parada é <span class="destaque">dinheiro parado.</span></h1>
+            <p class="hero-sub" data-animate style="--d:180ms">
+              Na <strong>Núcleo Motopeças e Acessórios</strong> você encontra peça de motor, freio,
+              elétrica, suspensão e muito mais — para as motos mais usadas por quem roda o dia
+              inteiro. Consulte pelo telefone e venha buscar na loja.
+            </p>
+
+            <div class="hero-acoes" data-animate style="--d:270ms">
+              <!-- CTA PRINCIPAL — troca entre ligar/WhatsApp em um só lugar
+                   (CONFIG.ctaPrincipal, no <script> do fim do arquivo) -->
+              <a class="btn btn-verde btn-hero" data-cta-principal data-telefone-link href="tel:+551932767035">
+                <span class="icone-ligar" aria-hidden="true"><svg width="21" height="21"><use href="#i-telefone"/></svg></span>
+                <span class="icone-wa" aria-hidden="true"><svg width="21" height="21"><use href="#i-whatsapp"/></svg></span>
+                <span class="texto-cta">
+                  <small data-cta-rotulo>Ligue agora</small>
+                  <strong data-telefone-texto>(19) 3276-7035</strong>
+                </span>
+              </a>
+              <a class="btn btn-contorno btn-hero" href="#contato">
+                Pedir peça pelo site
+                <svg aria-hidden="true"><use href="#i-seta"/></svg>
+              </a>
+            </div>
+
+            <ul class="hero-lascas" data-animate style="--d:360ms">
+              <li><i aria-hidden="true"></i>Motor</li>
+              <li><i aria-hidden="true"></i>Freio</li>
+              <li><i aria-hidden="true"></i>Elétrica</li>
+              <li><i aria-hidden="true"></i>Suspensão</li>
+              <li>e muito mais</li>
+            </ul>
+          </div>
+
+          <!-- Painel ilustrado (100% SVG/CSS original — sem fotos de terceiros) -->
+          <div class="painel-moto" data-animate style="--d:200ms" role="img" aria-label="Ilustração de uma motocicleta de competição com bandeira quadriculada">
+            <div class="painel-bandeira" aria-hidden="true"></div>
+            <div class="palco">
+              <span class="placa" aria-hidden="true">19</span>
+              <span class="flutante f1" aria-hidden="true"><i></i>Motor</span>
+              <span class="flutante f2" aria-hidden="true"><i></i>Freio</span>
+              <span class="flutante f3" aria-hidden="true"><i></i>Elétrica</span>
+              <span class="flutante f4" aria-hidden="true"><i></i>Suspensão</span>
+
+              <svg class="moto-svg" viewBox="0 0 100 60" aria-hidden="true">
+                <defs>
+                  <linearGradient id="grad-verde" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#5cf09a"/>
+                    <stop offset="1" stop-color="#12a45a"/>
+                  </linearGradient>
+                </defs>
+                <g stroke="#1ec864" stroke-width="1.1" opacity=".5" stroke-linecap="round">
+                  <line class="vel v1" x1="0" y1="10" x2="44" y2="10"/>
+                  <line class="vel v2" x1="8" y1="21" x2="36" y2="21"/>
+                  <line class="vel v3" x1="2" y1="32" x2="28" y2="32"/>
+                </g>
+                <ellipse cx="50" cy="57" rx="37" ry="2.6" fill="#1ec864" opacity=".1"/>
+                <ellipse cx="50" cy="57" rx="22" ry="1.8" fill="#1ec864" opacity=".16"/>
+                <g class="moto-grupo">
+                  <use href="#moto" stroke="url(#grad-verde)"/>
+                </g>
+              </svg>
+            </div>
+            <div class="painel-pe">
+              <div>
+                <span class="rotulo-pe">Estoque da loja</span>
+                <strong>Grande e variado</strong>
+              </div>
+              <span class="mini-xadrez" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         LETREIRO DE CATEGORIAS
+    ========================================================== -->
+    <div class="letreiro" aria-hidden="true">
+      <div class="letreiro-trilha">
+        <div>
+          <span>Motor</span><i></i><span>Freio</span><i></i><span>Elétrica</span><i></i>
+          <span>Suspensão</span><i></i><span>Transmissão</span><i></i><span>Acessórios</span><i></i>
+        </div>
+        <div>
+          <span>Motor</span><i></i><span>Freio</span><i></i><span>Elétrica</span><i></i>
+          <span>Suspensão</span><i></i><span>Transmissão</span><i></i><span>Acessórios</span><i></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================
+         DIFERENCIAIS
+    ========================================================== -->
+    <section id="diferenciais" class="secao">
+      <div class="molde">
+        <span class="rotulo" data-animate>Diferenciais</span>
+        <h2 class="titulo-sec" data-animate style="--d:80ms">Loja pensada pra quem vive na moto</h2>
+        <p class="sub-sec" data-animate style="--d:160ms">
+          Estoque grande, atendimento rápido e zero enrolação — porque quem trabalha
+          sobre duas rodas não tem tempo a perder.
+        </p>
+
+        <div class="grade-cartoes">
+          <article class="cartao" data-animate>
+            <span class="num" aria-hidden="true">01</span>
+            <span class="cartao-icone"><svg aria-hidden="true"><use href="#i-caixa"/></svg></span>
+            <h3>Estoque grande e variado</h3>
+            <p>Peças de motor, freio, sistema elétrico, suspensão, transmissão e acessórios — tudo em um só lugar, pronto para você levar.</p>
+          </article>
+
+          <article class="cartao" data-animate style="--d:90ms">
+            <span class="num" aria-hidden="true">02</span>
+            <span class="cartao-icone"><svg aria-hidden="true"><use href="#i-zap"/></svg></span>
+            <h3>Atendimento rápido</h3>
+            <p>Você pergunta, a gente verifica e resolve. Sem enrolação: quem vive da moto não pode ficar esperando.</p>
+          </article>
+
+          <article class="cartao" data-animate style="--d:180ms">
+            <span class="num" aria-hidden="true">03</span>
+            <span class="cartao-icone"><svg aria-hidden="true"><use href="#moto"/></svg></span>
+            <h3>Referência entre motoboys</h3>
+            <p>Quem entrega em Campinas todos os dias já conhece a loja — e volta sempre que precisa de peça.</p>
+          </article>
+
+          <article class="cartao" data-animate style="--d:270ms">
+            <span class="num" aria-hidden="true">04</span>
+            <span class="cartao-icone"><svg aria-hidden="true"><use href="#i-alvo"/></svg></span>
+            <h3>100% peças de moto</h3>
+            <p>Loja especializada em peças e acessórios para moto. Foco total em te atender bem no que a sua moto precisa.</p>
+          </article>
+        </div>
+
+        <div class="nota-box" data-animate style="--d:120ms">
+          <svg aria-hidden="true"><use href="#i-info"/></svg>
+          <span>Somos loja de <strong>peças e acessórios</strong>: não realizamos serviços de oficina ou mecânica.</span>
+        </div>
+
+        <div class="lascas-bloco" data-animate>
+          <p class="lascas-rotulo">O que você encontra na loja</p>
+          <div class="lascas">
+            <span class="lasca"><i aria-hidden="true"></i>Motor</span>
+            <span class="lasca"><i aria-hidden="true"></i>Freio</span>
+            <span class="lasca"><i aria-hidden="true"></i>Elétrica</span>
+            <span class="lasca"><i aria-hidden="true"></i>Suspensão</span>
+            <span class="lasca"><i aria-hidden="true"></i>Transmissão</span>
+            <span class="lasca"><i aria-hidden="true"></i>Acessórios</span>
+            <span class="lasca lasca-mais">e muito mais — consulte pelo telefone</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         DEPOIMENTOS
+    ========================================================== -->
+    <section id="depoimentos" class="secao secao-alt">
+      <div class="molde">
+        <span class="rotulo" data-animate>Quem roda, recomenda</span>
+        <h2 class="titulo-sec" data-animate style="--d:80ms">O que dizem os clientes</h2>
+        <p class="sub-sec" data-animate style="--d:160ms">Histórias de quem usa a moto todos os dias para trabalhar.</p>
+        <!-- TODO: os depoimentos abaixo são ILUSTRATIVOS (placeholders).
+             Substitua cada bloco .slide por avaliações reais quando existirem. -->
+        <p class="depo-Nota" data-animate style="--d:200ms">* Depoimentos de exemplo — <em>serão substituídos por avaliações reais de clientes.</em></p>
+
+        <div class="carrossel" data-carrossel data-animate style="--d:240ms">
+          <div class="janela">
+            <div class="pista">
+
+              <!-- DEPOIMENTO DE EXEMPLO 1 — substituir por avaliação real -->
+              <div class="slide">
+                <figure class="cartao-depo">
+                  <svg class="aspa" aria-hidden="true"><use href="#i-aspa"/></svg>
+                  <blockquote class="depo-texto">
+                    Trabalho com delivery e moto parada é prejuízo. Ligo, pergunto se tem a
+                    peça e já passo na loja pra buscar. Resolvido em minutos.
+                  </blockquote>
+                  <figcaption class="depo-rodape">
+                    <span class="avatar" aria-hidden="true">C</span>
+                    <span>
+                      <strong>Carlos M.</strong>
+                      <small>Motoboy · Campinas</small>
+                    </span>
+                  </figcaption>
+                </figure>
+              </div>
+
+              <!-- DEPOIMENTO DE EXEMPLO 2 — substituir por avaliação real -->
+              <div class="slide">
+                <figure class="cartao-depo">
+                  <svg class="aspa" aria-hidden="true"><use href="#i-aspa"/></svg>
+                  <blockquote class="depo-texto">
+                    Precisei de peça do motor da minha CG e achei tudo no mesmo lugar.
+                    Não precisei rodar loja nenhuma.
+                  </blockquote>
+                  <figcaption class="depo-rodape">
+                    <span class="avatar" aria-hidden="true">R</span>
+                    <span>
+                      <strong>Rafael S.</strong>
+                      <small>Motoboy · Campinas</small>
+                    </span>
+                  </figcaption>
+                </figure>
+              </div>
+
+              <!-- DEPOIMENTO DE EXEMPLO 3 — substituir por avaliação real -->
+              <div class="slide">
+                <figure class="cartao-depo">
+                  <svg class="aspa" aria-hidden="true"><use href="#i-aspa"/></svg>
+                  <blockquote class="depo-texto">
+                    Sempre me atendem bem e me ajudam a confirmar a peça certa do meu modelo.
+                    Virei cliente fiel.
+                  </blockquote>
+                  <figcaption class="depo-rodape">
+                    <span class="avatar" aria-hidden="true">J</span>
+                    <span>
+                      <strong>Juninho</strong>
+                      <small>Entregador · Campinas</small>
+                    </span>
+                  </figcaption>
+                </figure>
+              </div>
+
+              <!-- DEPOIMENTO DE EXEMPLO 4 — substituir por avaliação real -->
+              <div class="slide">
+                <figure class="cartao-depo">
+                  <svg class="aspa" aria-hidden="true"><use href="#i-aspa"/></svg>
+                  <blockquote class="depo-texto">
+                    Loja de confiança pra quem vive na moto. Estoque bom e
+                    atendimento rápido — recomendo pros colegas de aplicativo.
+                  </blockquote>
+                  <figcaption class="depo-rodape">
+                    <span class="avatar" aria-hidden="true">A</span>
+                    <span>
+                      <strong>Anderson P.</strong>
+                      <small>Motociclista · Campinas</small>
+                    </span>
+                  </figcaption>
+                </figure>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="controles">
+            <button class="seta" type="button" data-anterior aria-label="Depoimento anterior">
+              <svg aria-hidden="true"><use href="#i-chev-esq"/></svg>
+            </button>
+            <div class="pontos" data-pontos></div>
+            <button class="seta" type="button" data-proximo aria-label="Próximo depoimento">
+              <svg aria-hidden="true"><use href="#i-chev-dir"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         CONTATO
+    ========================================================== -->
+    <section id="contato" class="secao">
+      <div class="molde">
+        <span class="rotulo" data-animate>Contato</span>
+        <h2 class="titulo-sec" data-animate style="--d:80ms">Consulte a peça que você precisa</h2>
+        <p class="sub-sec" data-animate style="--d:160ms">
+          Descreva o que você procura ou ligue direto para a loja. Informe o modelo e o ano
+          da moto para agilizar o atendimento.
+        </p>
+
+        <div class="contato-grade">
+
+          <!-- Formulário → Google Sheets via Apps Script (ver apps-script/) -->
+          <div class="cartao-form" data-animate>
+            <h3>Pedir peça pelo site</h3>
+            <p>Preencha os campos abaixo e envie — a gente confere o estoque e retorna o contato.</p>
+
+            <form id="formulario" class="form-grid" novalidate>
+              <div class="campo">
+                <label for="nome">Seu nome <span>*</span></label>
+                <input type="text" id="nome" name="nome" placeholder="Como podemos te chamar?" autocomplete="name" required />
+                <p class="aviso-campo" data-aviso="nome">Digite seu nome.</p>
+              </div>
+
+              <div class="campo">
+                <label for="telefone">WhatsApp / Telefone <span>*</span></label>
+                <input type="tel" id="telefone" name="telefone" placeholder="(19) 90000-0000" autocomplete="tel" inputmode="numeric" required />
+                <p class="aviso-campo" data-aviso="telefone">Digite um telefone válido com DDD.</p>
+              </div>
+
+              <div class="campo campo-largo">
+                <label for="email">E-mail <span style="color:var(--texto-3)">(opcional)</span></label>
+                <input type="email" id="email" name="email" placeholder="voce@email.com" autocomplete="email" />
+                <p class="aviso-campo" data-aviso="email">Digite um e-mail válido.</p>
+              </div>
+
+              <div class="campo campo-largo">
+                <label for="mensagem">Qual peça você procura? <span>*</span></label>
+                <textarea id="mensagem" name="mensagem" placeholder="Ex.: pastilha de freio dianteira — CG 160 Fan" required></textarea>
+                <p class="aviso-campo" data-aviso="mensagem">Descreva a peça que você procura.</p>
+              </div>
+
+              <p class="dica"><strong>Dica:</strong> informe o modelo e o ano da moto — ajuda a gente a acertar a peça certa de primeira.</p>
+
+              <!-- armadilha anti-spam (invisível para pessoas) -->
+              <div class="armadilha" aria-hidden="true">
+                <label for="website">Não preencha este campo</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <div class="form-acao campo-largo">
+                <div class="msg msg-ok" id="msg-ok" role="status" hidden>
+                  <svg aria-hidden="true"><use href="#i-check"/></svg>
+                  <span><strong>Pedido enviado!</strong> A gente retorna o contato em breve. Se preferir, ligue agora: <a data-telefone-link href="tel:+551932767035"><span data-telefone-texto>(19) 3276-7035</span></a>.</span>
+                </div>
+                <div class="msg msg-erro" id="msg-erro" role="alert" hidden>
+                  <svg aria-hidden="true"><use href="#i-alerta"/></svg>
+                  <span id="msg-erro-texto">Não foi possível enviar agora. Tente de novo em alguns instantes.</span>
+                </div>
+
+                <button type="submit" class="btn btn-verde btn-form">
+                  <span class="giro" aria-hidden="true"></span>
+                  <svg aria-hidden="true"><use href="#i-seta"/></svg>
+                  Enviar pedido de peça
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Card de contato direto -->
+          <aside class="cartao-info" data-animate style="--d:120ms">
+            <h3>Prefere falar direto?</h3>
+            <p>Chama na loja — o atendimento é rápido.</p>
+
+            <a class="btn btn-verde" data-cta-principal data-telefone-link href="tel:+551932767035">
+              <span class="modo modo-ligar"><svg aria-hidden="true"><use href="#i-telefone"/></svg>Ligar agora</span>
+              <span class="modo modo-whatsapp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Chamar no WhatsApp</span>
+            </a>
+
+            <!-- Botão extra de WhatsApp — só aparece se CONFIG.whatsapp.ativo = true -->
+            <a class="btn btn-contorno" data-wa href="https://wa.me/551932767035" hidden>
+              <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
+              Chamar no WhatsApp
+            </a>
+
+            <div class="info-lista">
+              <div class="info-item">
+                <svg aria-hidden="true"><use href="#i-telefone"/></svg>
+                <div>
+                  <span>Telefone</span>
+                  <p><a data-telefone-link href="tel:+551932767035"><span data-telefone-texto>(19) 3276-7035</span></a></p>
+                </div>
+              </div>
+              <div class="info-item">
+                <svg aria-hidden="true"><use href="#i-pin"/></svg>
+                <div>
+                  <span>Endereço</span>
+                  <!-- TODO: preencher com o endereço real da loja -->
+                  <p><span class="placeholder">[endereço aqui]</span> · Campinas/SP</p>
+                </div>
+              </div>
+              <div class="info-item">
+                <svg aria-hidden="true"><use href="#i-relogio"/></svg>
+                <div>
+                  <span>Horário</span>
+                  <!-- TODO: preencher com o horário real de funcionamento -->
+                  <p><span class="placeholder">[horário de funcionamento aqui]</span></p>
+                </div>
+              </div>
+              <div class="info-item">
+                <svg aria-hidden="true"><use href="#i-mail"/></svg>
+                <div>
+                  <span>E-mail</span>
+                  <!-- TODO: preencher se a loja tiver e-mail de contato -->
+                  <p><span class="placeholder">[e-mail aqui, se houver]</span></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="nota-box" style="margin-top:.2rem">
+              <svg aria-hidden="true"><use href="#i-info"/></svg>
+              <span>Vendemos <strong>peças e acessórios</strong> — não realizamos serviços de oficina ou mecânica.</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       RODAPÉ
+  ============================================================ -->
+  <footer class="rodape">
+    <div class="rodape-xadrez" aria-hidden="true"></div>
+    <div class="molde">
+      <div class="rodape-grade">
+        <div>
+          <a href="#inicio" class="marca" aria-label="Núcleo Motopeças e Acessórios — voltar ao início">
+            <span class="marca-icone" aria-hidden="true">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <rect x="1" y="1" width="46" height="46" rx="11" fill="none" stroke="rgba(30,200,100,.4)" stroke-width="2"/>
+                <rect x="7" y="7" width="34" height="9" rx="2" fill="url(#xadrez-logo)"/>
+                <use href="#moto" x="8" y="20" width="32" height="19.2" color="#eef4f0"/>
+              </svg>
+            </span>
+            <span class="marca-texto">
+              <strong>NÚCLEO</strong>
+              <small>MOTOPEÇAS E ACESSÓRIOS</small>
+            </span>
+          </a>
+          <p class="rodape-tag">
+            Peças e acessórios para moto em Campinas/SP. Estoque grande,
+            atendimento rápido — a loja de quem vive sobre duas rodas.
+          </p>
+        </div>
+
+        <div>
+          <h4>Contato</h4>
+          <ul class="rodape-lista">
+            <li class="item-icone">
+              <svg aria-hidden="true"><use href="#i-telefone"/></svg>
+              <a data-telefone-link href="tel:+551932767035"><span data-telefone-texto>(19) 3276-7035</span></a>
+            </li>
+            <li class="item-icone">
+              <svg aria-hidden="true"><use href="#i-pin"/></svg>
+              <!-- TODO: preencher com o endereço real da loja -->
+              <span><span class="placeholder">[endereço aqui]</span> · Campinas/SP</span>
+            </li>
+            <li class="item-icone">
+              <svg aria-hidden="true"><use href="#i-relogio"/></svg>
+              <!-- TODO: preencher com o horário real de funcionamento -->
+              <span><span class="placeholder">[horário de funcionamento aqui]</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Navegação</h4>
+          <ul class="rodape-lista">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#diferenciais">Diferenciais</a></li>
+            <li><a href="#depoimentos">Depoimentos</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+          <p class="rodape-nota">Loja de peças e acessórios — não realizamos serviços de oficina ou mecânica.</p>
+        </div>
+      </div>
+
+      <div class="rodape-base">
+        <span>© <span data-ano>2025</span> Núcleo Motopeças e Acessórios — Campinas/SP</span>
+        <span>Peças de moto · Motor · Freio · Elétrica · Suspensão</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Barra fixa mobile -->
+  <div class="barra-mobile" aria-label="Ações rápidas">
+    <a class="btn btn-verde" data-cta-principal data-telefone-link href="tel:+551932767035">
+      <span class="modo modo-ligar"><svg aria-hidden="true"><use href="#i-telefone"/></svg>Ligar agora</span>
+      <span class="modo modo-whatsapp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Chamar no WhatsApp</span>
+    </a>
+    <a class="btn btn-contorno" href="#contato">Pedir peça</a>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ==============================================================
+       CONFIGURAÇÃO DA LOJA — edite apenas aqui
+       ==============================================================
+       1) ctaPrincipal: 'ligar' (padrão) ou 'whatsapp'
+          O número (19) 3276-7035 parece ser fixo. Até confirmarem se a
+          loja tem WhatsApp, mantenha 'ligar'. Para trocar TODOS os CTAs
+          do site de uma vez, basta alterar esta linha.
+       2) whatsapp.ativo: mude para true quando confirmar que a loja
+          usa WhatsApp (isso exibe o botão extra de WhatsApp no contato).
+       3) appsScriptUrl: URL do Apps Script implantado — o passo a passo
+          completo está em: apps-script/COMO-IMPLANTAR.md
+    ============================================================== */
+    var CONFIG = {
+      telefone: {
+        texto: '(19) 3276-7035',
+        link: 'tel:+551932767035'
+      },
+      whatsapp: {
+        ativo: false,               // <- true quando confirmar o WhatsApp
+        numero: '551932767035',     // formato internacional, só dígitos
+        mensagem: 'Olá! Vi o site da Núcleo Motopeças e quero consultar uma peça.'
+      },
+      ctaPrincipal: 'ligar',        // 'ligar' | 'whatsapp'
+      appsScriptUrl: 'COLE_AQUI_A_URL_DO_APPS_SCRIPT'
+    };
+
+    function $(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+
+    /* ---------------- Aplicar configuração ---------------- */
+    function aplicarConfig() {
+      var waUrl = 'https://wa.me/' + CONFIG.whatsapp.numero +
+                  '?text=' + encodeURIComponent(CONFIG.whatsapp.mensagem);
+
+      $('[data-telefone-texto]').forEach(function (el) { el.textContent = CONFIG.telefone.texto; });
+      $('[data-telefone-link]').forEach(function (el) { el.setAttribute('href', CONFIG.telefone.link); });
+
+      if (CONFIG.whatsapp.ativo) {
+        $('[data-wa]').forEach(function (el) { el.setAttribute('href', waUrl); el.hidden = false; });
+      }
+
+      var modoWa = CONFIG.ctaPrincipal === 'whatsapp' && CONFIG.whatsapp.ativo;
+      document.body.classList.toggle('cta-whatsapp', modoWa);
+      $('[data-cta-principal]').forEach(function (el) {
+        el.setAttribute('href', modoWa ? waUrl : CONFIG.telefone.link);
+      });
+      $('[data-cta-rotulo]').forEach(function (el) {
+        el.textContent = modoWa ? 'Chamar no WhatsApp' : 'Ligue agora';
+      });
+    }
+
+    /* ---------------- Cabeçalho: fundo/blur ao rolar ---------------- */
+    var cabecalho = document.getElementById('cabecalho');
+    function aoRolar() { cabecalho.classList.toggle('rolada', window.scrollY > 12); }
+    window.addEventListener('scroll', aoRolar, { passive: true });
+    aoRolar();
+
+    /* ---------------- Menu mobile (hambúrguer) ---------------- */
+    var botaoMenu = document.getElementById('botao-menu');
+    var menuMobile = document.getElementById('menu-mobile');
+
+    function alternarMenu(abrir) {
+      var aberto = abrir === undefined ? !document.body.classList.contains('menu-aberto') : abrir;
+      document.body.classList.toggle('menu-aberto', aberto);
+      menuMobile.classList.toggle('aberto', aberto);
+      botaoMenu.classList.toggle('aberto', aberto);
+      botaoMenu.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+      botaoMenu.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+    }
+
+    botaoMenu.addEventListener('click', function () { alternarMenu(); });
+    $('#menu-mobile a').forEach(function (a) {
+      a.addEventListener('click', function () { alternarMenu(false); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') alternarMenu(false);
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 860) alternarMenu(false);
+    });
+
+    /* ---------------- Animações de entrada ao rolar ---------------- */
+    var animaveis = $('[data-animate]');
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+      animaveis.forEach(function (el) { obs.observe(el); });
+    } else {
+      animaveis.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    /* ---------------- Carrossel de depoimentos ---------------- */
+    var raiz = document.querySelector('[data-carrossel]');
+    if (raiz) {
+      var pista = raiz.querySelector('.pista');
+      var slides = Array.prototype.slice.call(pista.children);
+      var pontosBox = raiz.querySelector('[data-pontos]');
+      var total = slides.length;
+      var indice = 0, timer = null;
+
+      var bPontos = slides.map(function (_, i) {
+        var b = document.createElement('button');
+        b.className = 'ponto';
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Ir para o depoimento ' + (i + 1));
+        b.addEventListener('click', function () { ir(i); reiniciar(); });
+        pontosBox.appendChild(b);
+        return b;
+      });
+
+      function ir(n) {
+        indice = (n + total) % total;
+        pista.style.transform = 'translateX(-' + (indice * 100) + '%)';
+        bPontos.forEach(function (p, i) { p.classList.toggle('ativo', i === indice); });
+      }
+      function reiniciar() { clearInterval(timer); timer = setInterval(function () { ir(indice + 1); }, 6500); }
+
+      raiz.querySelector('[data-anterior]').addEventListener('click', function () { ir(indice - 1); reiniciar(); });
+      raiz.querySelector('[data-proximo]').addEventListener('click', function () { ir(indice + 1); reiniciar(); });
+
+      raiz.addEventListener('pointerenter', function () { clearInterval(timer); });
+      raiz.addEventListener('pointerleave', reiniciar);
+
+      /* swipe no toque */
+      var x0 = null;
+      raiz.addEventListener('pointerdown', function (e) { x0 = e.clientX; clearInterval(timer); });
+      raiz.addEventListener('pointerup', function (e) {
+        if (x0 === null) return;
+        var dx = e.clientX - x0;
+        if (Math.abs(dx) > 44) { dx < 0 ? ir(indice + 1) : ir(indice - 1); }
+        x0 = null; reiniciar();
+      });
+      raiz.addEventListener('pointercancel', function () { x0 = null; reiniciar(); });
+
+      ir(0); reiniciar();
+    }
+
+    /* ---------------- Máscara de telefone ---------------- */
+    var campoTel = document.getElementById('telefone');
+    if (campoTel) {
+      campoTel.addEventListener('input', function () {
+        var d = campoTel.value.replace(/\D/g, '').slice(0, 11);
+        var v = '';
+        if (d.length > 0) v = '(' + d.slice(0, 2);
+        if (d.length > 2) v += ') ' + d.slice(2, 7);
+        if (d.length > 7) v += '-' + d.slice(7, 11);
+        campoTel.value = v;
+      });
+    }
+
+    /* ---------------- Formulário → Google Sheets ---------------- */
+    var form = document.getElementById('formulario');
+    if (form) {
+      var campos = {
+        nome: document.getElementById('nome'),
+        telefone: document.getElementById('telefone'),
+        email: document.getElementById('email'),
+        mensagem: document.getElementById('mensagem')
+      };
+      var botaoEnvio = form.querySelector('button[type="submit"]');
+      var caixaOk = document.getElementById('msg-ok');
+      var caixaErro = document.getElementById('msg-erro');
+      var textoErro = document.getElementById('msg-erro-texto');
+
+      function invalidar(nome, marcar) {
+        var aviso = form.querySelector('[data-aviso="' + nome + '"]');
+        if (aviso) aviso.parentElement.classList.toggle('invalido', marcar);
+      }
+      Object.keys(campos).forEach(function (nome) {
+        campos[nome].addEventListener('input', function () { invalidar(nome, false); });
+      });
+
+      function validar() {
+        var ok = true;
+        if (campos.nome.value.trim().length < 2) { invalidar('nome', true); ok = false; }
+        if (campos.telefone.value.replace(/\D/g, '').length < 10) { invalidar('telefone', true); ok = false; }
+        var email = campos.email.value.trim();
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { invalidar('email', true); ok = false; }
+        if (campos.mensagem.value.trim().length < 4) { invalidar('mensagem', true); ok = false; }
+        return ok;
+      }
+
+      function falharEnvio() {
+        botaoEnvio.classList.remove('carregando');
+        botaoEnvio.disabled = false;
+        textoErro.textContent = 'Não foi possível enviar agora. Tente de novo em alguns instantes — ou ligue para ' + CONFIG.telefone.texto + '.';
+        caixaErro.hidden = false;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        caixaOk.hidden = true;
+        caixaErro.hidden = true;
+
+        /* armadilha anti-spam: se o campo invisível foi preenchido, descarta */
+        if (document.getElementById('website').value) {
+          form.reset();
+          caixaOk.hidden = false;
+          return;
+        }
+        if (!validar()) return;
+
+        if (CONFIG.appsScriptUrl.indexOf('COLE_AQUI') === 0) {
+          textoErro.textContent = 'O envio ainda não foi configurado (falta colar a URL do Apps Script — veja apps-script/COMO-IMPLANTAR.md). Por enquanto, ligue para ' + CONFIG.telefone.texto + '.';
+          caixaErro.hidden = false;
+          return;
+        }
+
+        var dados = {
+          nome: campos.nome.value.trim(),
+          telefone: campos.telefone.value.trim(),
+          email: campos.email.value.trim(),
+          mensagem: campos.mensagem.value.trim(),
+          origem: 'Site — Núcleo Motopeças',
+          pagina: window.location.href,
+          enviadoEm: new Date().toISOString()
+        };
+
+        botaoEnvio.classList.add('carregando');
+        botaoEnvio.disabled = true;
+
+        fetch(CONFIG.appsScriptUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(dados)
+        })
+        .then(function (res) {
+          return res.json().catch(function () { return { ok: res.ok }; });
+        })
+        .then(function (j) {
+          botaoEnvio.classList.remove('carregando');
+          botaoEnvio.disabled = false;
+          if (j && j.ok) {
+            form.reset();
+            caixaOk.hidden = false;
+            caixaOk.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            falharEnvio();
+          }
+        })
+        .catch(falharEnvio);
+      });
+    }
+
+    /* ---------------- Esconder barra mobile na seção contato ---------------- */
+    var secaoContato = document.getElementById('contato');
+    if (secaoContato && 'IntersectionObserver' in window) {
+      var obsBarra = new IntersectionObserver(function (entradas) {
+        document.body.classList.toggle('sem-barra', entradas[0].isIntersecting);
+      }, { threshold: 0.1 });
+      obsBarra.observe(secaoContato);
+    }
+
+    /* ---------------- Ano no rodapé ---------------- */
+    $('[data-ano]').forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
+
+    aplicarConfig();
+  })();
+  </script>
+</body>
+</html>
