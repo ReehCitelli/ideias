@@ -1,0 +1,1510 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Núcleo Motopeças e Acessórios — Peças de moto em Campinas-SP</title>
+<meta name="description" content="Núcleo Motopeças e Acessórios, em Campinas-SP. Estoque grande e variado de peças de moto: motor, freio, elétrica, suspensão, transmissão e mais. Somente venda de peças — não fazemos serviço de oficina." />
+<meta name="theme-color" content="#07100B" />
+<meta name="format-detection" content="telephone=yes" />
+
+<!-- Open Graph (sem imagem externa: só texto, para não depender de arquivo de terceiros) -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:title" content="Núcleo Motopeças e Acessórios — Campinas-SP" />
+<meta property="og:description" content="Peça de moto com estoque grande e atendimento rápido. Ponto de referência dos motoboys de Campinas." />
+
+<!-- Favicon inline (SVG em data URI) — arquivo continua 100% autocontido -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2311A73F'/%3E%3Cpath d='M20 46V18h6l12 17V18h6v28h-6L26 29v17z' fill='%23fff'/%3E%3C/svg%3E" />
+
+<!--
+  =====================================================================
+  NÚCLEO MOTOPEÇAS E ACESSÓRIOS — Landing page (arquivo único)
+  ---------------------------------------------------------------------
+  • 1 arquivo .html, com CSS e JS embutidos. Não precisa de build,
+    servidor ou internet para abrir: é só dar duplo clique.
+  • ZERO requisições externas (sem Google Fonts, sem CDN, sem imagens
+    hospedadas fora). Isso é proposital: o público acessa pelo celular,
+    muitas vezes com internet fraca.
+  • Toda a configuração editável está no bloco "CONFIGURAÇÃO RÁPIDA",
+    no início do <script> lá embaixo.
+  =====================================================================
+-->
+
+<style>
+/* =====================================================================
+   1. TOKENS / PALETA
+   Paleta construída a partir do verde + branco da logo da loja
+   (verde de bandeira de corrida). Tema escuro, destaque verde.
+   ===================================================================== */
+:root{
+  --green-400:#3BE07A;
+  --green-500:#15C24E;
+  --green-600:#11A73F;
+  --green-700:#0B7E2F;
+  --green-900:#063315;
+
+  --bg:#07100B;
+  --bg-2:#0A1710;
+  --surface:rgba(255,255,255,.035);
+  --surface-2:rgba(255,255,255,.06);
+  --line:rgba(255,255,255,.09);
+  --line-strong:rgba(255,255,255,.16);
+
+  --text:#EDF5EF;
+  --muted:#94A79B;
+  --muted-2:#6F8377;
+
+  --glow:0 0 0 1px rgba(21,194,78,.35), 0 18px 50px -18px rgba(21,194,78,.55);
+  --radius:16px;
+  --radius-lg:22px;
+  --maxw:1180px;
+  --nav-h:64px;
+
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+}
+
+/* =====================================================================
+   2. RESET + BASE
+   ===================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html:focus-within{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--green-400);outline-offset:3px;border-radius:6px}
+::selection{background:var(--green-500);color:#04150A}
+
+/* fundo global: brilho verde suave + grade sutil */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 78% -8%, rgba(21,194,78,.18), transparent 62%),
+    radial-gradient(700px 480px at 4% 12%, rgba(11,126,47,.14), transparent 60%),
+    linear-gradient(180deg,#07100B 0%, #060D09 55%, #050B07 100%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:
+    linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(70% 55% at 50% 0%, #000 0%, transparent 85%);
+          mask-image:radial-gradient(70% 55% at 50% 0%, #000 0%, transparent 85%);
+}
+
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:20px}
+.section{padding:72px 0;position:relative}
+@media (min-width:900px){ .section{padding:104px 0} }
+
+/* padrão de bandeira quadriculada (identidade da logo) */
+.checker{
+  --sq:10px;
+  background-color:transparent;
+  background-image:
+    linear-gradient(45deg, rgba(255,255,255,.85) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.85) 75%),
+    linear-gradient(45deg, rgba(255,255,255,.85) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.85) 75%);
+  background-size:calc(var(--sq)*2) calc(var(--sq)*2);
+  background-position:0 0, var(--sq) var(--sq);
+}
+.checker-strip{height:8px;--sq:8px;opacity:.9}
+.checker-strip.green{
+  background-image:
+    linear-gradient(45deg, var(--green-500) 25%, transparent 25%, transparent 75%, var(--green-500) 75%),
+    linear-gradient(45deg, var(--green-500) 25%, transparent 25%, transparent 75%, var(--green-500) 75%);
+  background-color:rgba(255,255,255,.9);
+}
+
+/* =====================================================================
+   3. TIPOGRAFIA / UTILITÁRIOS
+   ===================================================================== */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--green-400);
+  background:rgba(21,194,78,.1);
+  border:1px solid rgba(21,194,78,.28);
+  padding:7px 13px;border-radius:999px;
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green-400);box-shadow:0 0 10px var(--green-400)}
+h1,.h1{font-size:clamp(2rem,7.4vw,4rem);line-height:1.04;font-weight:900;letter-spacing:-.03em}
+h2,.h2{font-size:clamp(1.65rem,5.2vw,2.85rem);line-height:1.1;font-weight:900;letter-spacing:-.025em}
+h3,.h3{font-size:1.06rem;font-weight:800;letter-spacing:-.01em}
+.lead{color:var(--muted);font-size:clamp(1rem,2.6vw,1.13rem);line-height:1.65}
+.grad{
+  background:linear-gradient(100deg,var(--green-400),var(--green-500) 45%,#9BF7BC);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.small{font-size:.85rem}
+.muted{color:var(--muted)}
+.center{text-align:center}
+.sec-head{max-width:720px;margin-inline:auto;text-align:center;margin-bottom:44px}
+.sec-head h2{margin:16px 0 14px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* placeholder visível para dados NÃO confirmados */
+.ph{
+  display:inline-block;
+  color:#FFD76A;
+  background:rgba(255,196,0,.09);
+  border:1px dashed rgba(255,196,0,.45);
+  border-radius:7px;
+  padding:1px 7px;
+  font-size:.86em;font-weight:700;
+  white-space:nowrap;
+}
+
+/* =====================================================================
+   4. BOTÕES
+   ===================================================================== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:14px 22px;border-radius:12px;border:1px solid transparent;
+  font-weight:800;font-size:.97rem;letter-spacing:-.01em;cursor:pointer;
+  transition:transform .18s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
+  text-align:center;line-height:1.2;
+}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-primary{
+  background:linear-gradient(180deg,var(--green-500),var(--green-700));
+  color:#03190C;
+  box-shadow:0 10px 30px -12px rgba(21,194,78,.85), inset 0 1px 0 rgba(255,255,255,.28);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(21,194,78,.95), inset 0 1px 0 rgba(255,255,255,.3)}
+.btn-primary:active{transform:translateY(0)}
+.btn-ghost{background:var(--surface-2);border-color:var(--line-strong);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28);transform:translateY(-2px)}
+.btn-block{width:100%}
+.btn-sm{padding:10px 16px;font-size:.88rem;border-radius:10px}
+.btn-sm svg{width:16px;height:16px}
+
+/* =====================================================================
+   5. LOGO
+   ===================================================================== */
+.logo{display:flex;align-items:center;gap:11px}
+.logo-mark{width:40px;height:40px;flex:none;border-radius:11px;overflow:hidden;box-shadow:0 6px 18px -8px rgba(21,194,78,.9)}
+.logo-txt{display:flex;flex-direction:column;line-height:1}
+.logo-txt b{font-size:1.02rem;font-weight:900;letter-spacing:.02em}
+.logo-txt span{font-size:8.6px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:3px}
+
+/* =====================================================================
+   6. NAVEGAÇÃO
+   ===================================================================== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  height:var(--nav-h);display:flex;align-items:center;
+  background:transparent;border-bottom:1px solid transparent;
+  transition:background .3s ease, border-color .3s ease, backdrop-filter .3s ease, box-shadow .3s ease;
+}
+.nav.scrolled{
+  background:rgba(7,16,11,.72);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+          backdrop-filter:blur(14px) saturate(160%);
+  border-bottom-color:var(--line);
+  box-shadow:0 10px 30px -22px #000;
+}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-links{display:none;align-items:center;gap:4px}
+.nav-links a{
+  padding:9px 13px;border-radius:9px;font-size:.9rem;font-weight:600;color:var(--muted);
+  transition:color .18s ease,background .18s ease;
+}
+.nav-links a:hover{color:var(--text);background:var(--surface-2)}
+.nav-links a.active{color:var(--green-400)}
+.nav-cta{display:none}
+@media (min-width:940px){
+  .nav-links{display:flex}
+  .nav-cta{display:inline-flex}
+  .burger{display:none!important}
+}
+.burger{
+  width:42px;height:42px;display:grid;place-items:center;border-radius:11px;
+  background:var(--surface-2);border:1px solid var(--line);cursor:pointer;color:var(--text);
+}
+.burger svg{width:22px;height:22px}
+
+/* menu mobile */
+.mobile-menu{
+  position:fixed;inset:0;z-index:90;
+  background:rgba(5,11,8,.96);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  display:flex;flex-direction:column;
+  transform:translateY(-8px);opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .24s ease, transform .24s ease, visibility .24s;
+}
+.mobile-menu.open{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+.mm-top{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding-inline:20px;border-bottom:1px solid var(--line)}
+.mm-body{padding:22px 20px calc(28px + env(safe-area-inset-bottom));overflow-y:auto;flex:1}
+.mm-body a.mm-link{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:17px 4px;border-bottom:1px solid var(--line);
+  font-size:1.18rem;font-weight:800;letter-spacing:-.01em;
+}
+.mm-body a.mm-link svg{width:18px;height:18px;color:var(--green-500)}
+.mm-actions{display:grid;gap:11px;margin-top:26px}
+.mm-info{margin-top:26px;color:var(--muted);font-size:.87rem;line-height:1.75}
+
+/* =====================================================================
+   7. HERO
+   ===================================================================== */
+.hero{padding-top:calc(var(--nav-h) + 34px);padding-bottom:56px;position:relative;overflow:hidden}
+@media (min-width:900px){ .hero{padding-top:calc(var(--nav-h) + 68px);padding-bottom:88px} }
+.hero-grid{display:grid;gap:44px;align-items:center}
+@media (min-width:980px){ .hero-grid{grid-template-columns:1.06fr .94fr;gap:56px} }
+.hero h1{margin:20px 0 18px}
+.hero .lead{max-width:50ch}
+.hero-actions{display:grid;gap:11px;margin-top:28px}
+@media (min-width:460px){ .hero-actions{grid-auto-flow:column;grid-auto-columns:max-content} }
+.hero-note{
+  display:flex;gap:9px;align-items:flex-start;margin-top:22px;
+  color:var(--muted-2);font-size:.83rem;max-width:44ch;
+}
+.hero-note svg{width:15px;height:15px;flex:none;margin-top:3px;color:var(--green-600)}
+
+.trust{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:38px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+}
+.trust div{background:#09130D;padding:16px 12px}
+.trust b{display:block;font-size:.93rem;font-weight:800;color:var(--green-400);letter-spacing:-.01em}
+.trust span{display:block;font-size:.76rem;color:var(--muted);margin-top:3px;line-height:1.45}
+@media (max-width:430px){
+  .trust{grid-template-columns:1fr}
+  .trust div{display:flex;align-items:baseline;gap:9px;padding:13px 14px}
+  .trust b{flex:none}
+  .trust span{margin-top:0}
+}
+
+/* visual do hero (100% SVG/CSS original — sem foto de terceiros) */
+.hero-art{position:relative;display:grid;place-items:center;min-height:300px}
+.hero-art .halo{
+  position:absolute;width:min(94%,460px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(21,194,78,.3),transparent 66%);filter:blur(22px);
+}
+.hero-art svg.disc{width:min(92%,440px);height:auto;position:relative;z-index:1}
+.spin-slow{transform-origin:center;animation:spin 26s linear infinite}
+.spin-rev{transform-origin:center;animation:spin 38s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.chip-float{
+  position:absolute;z-index:2;display:flex;align-items:center;gap:8px;
+  background:rgba(10,23,16,.92);border:1px solid var(--line-strong);
+  padding:9px 13px;border-radius:12px;font-size:.78rem;font-weight:800;
+  box-shadow:0 14px 34px -18px #000;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.chip-float svg{width:16px;height:16px;color:var(--green-400)}
+.chip-1{top:4%;left:-2%;animation:float 6s ease-in-out infinite}
+.chip-2{bottom:12%;right:-2%;animation:float 7.2s ease-in-out infinite .6s}
+.chip-3{bottom:-1%;left:8%;animation:float 6.6s ease-in-out infinite 1.2s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* =====================================================================
+   8. CARDS / GRIDS
+   ===================================================================== */
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.022));
+  border:1px solid var(--line);border-radius:var(--radius);padding:22px;
+  transition:border-color .25s ease, transform .25s ease, background .25s ease;
+}
+.card:hover{border-color:rgba(21,194,78,.4);transform:translateY(-3px)}
+.icon-box{
+  width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(21,194,78,.12);border:1px solid rgba(21,194,78,.28);color:var(--green-400);
+  margin-bottom:14px;
+}
+.icon-box svg{width:22px;height:22px}
+
+.cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+@media (min-width:640px){ .cat-grid{grid-template-columns:repeat(3,1fr);gap:13px} }
+@media (min-width:980px){ .cat-grid{grid-template-columns:repeat(5,1fr)} }
+.cat{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:16px 13px;display:flex;flex-direction:column;gap:9px;
+  transition:border-color .22s ease,background .22s ease,transform .22s ease;
+}
+.cat:hover{border-color:rgba(21,194,78,.45);background:rgba(21,194,78,.07);transform:translateY(-3px)}
+.cat svg{width:24px;height:24px;color:var(--green-400)}
+.cat b{font-size:.9rem;font-weight:800;letter-spacing:-.01em}
+.cat span{font-size:.74rem;color:var(--muted-2);line-height:1.4}
+
+.feat-grid{display:grid;gap:14px}
+@media (min-width:760px){ .feat-grid{grid-template-columns:repeat(2,1fr)} }
+@media (min-width:1080px){ .feat-grid{grid-template-columns:repeat(4,1fr)} }
+
+.steps{display:grid;gap:14px;counter-reset:s}
+@media (min-width:760px){ .steps{grid-template-columns:repeat(3,1fr)} }
+.step{position:relative;padding-left:56px}
+.step::before{
+  counter-increment:s;content:counter(s);
+  position:absolute;left:0;top:-2px;width:40px;height:40px;border-radius:12px;
+  display:grid;place-items:center;font-weight:900;font-size:1.05rem;
+  background:linear-gradient(180deg,var(--green-500),var(--green-700));color:#03190C;
+  box-shadow:0 8px 22px -12px rgba(21,194,78,.9);
+}
+.step b{display:block;font-size:1.02rem;font-weight:800;margin-bottom:5px}
+.step p{color:var(--muted);font-size:.9rem}
+
+/* =====================================================================
+   9. DEPOIMENTOS (carrossel)
+   ===================================================================== */
+.tst{position:relative}
+.tst-viewport{overflow:hidden;margin-inline:-6px;padding:6px;touch-action:pan-y}
+.tst-track{display:flex;transition:transform .5s cubic-bezier(.22,.85,.3,1);will-change:transform}
+.tst-slide{flex:0 0 100%;padding-inline:6px;box-sizing:border-box}
+.tst-card{
+  height:100%;display:flex;flex-direction:column;gap:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px 22px;
+}
+.tst-card .q{width:34px;height:34px;color:var(--green-500);opacity:.85}
+.tst-card p{font-size:1.02rem;line-height:1.6;letter-spacing:-.01em}
+@media (min-width:900px){ .tst-card p{font-size:1.1rem} }
+.tst-who{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:6px}
+.tst-av{
+  width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;
+  font-weight:900;font-size:.95rem;color:#03190C;
+  background:linear-gradient(140deg,var(--green-400),var(--green-700));
+}
+.tst-meta b{display:block;font-size:.93rem;font-weight:800;letter-spacing:-.01em}
+.tst-meta span{display:block;font-size:.78rem;color:var(--muted)}
+.tst-ctrls{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:26px}
+.tst-btn{
+  width:44px;height:44px;flex:none;border-radius:12px;display:grid;place-items:center;cursor:pointer;
+  background:var(--surface-2);border:1px solid var(--line-strong);color:var(--text);
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.tst-btn:hover{background:rgba(21,194,78,.16);border-color:rgba(21,194,78,.5);transform:translateY(-2px)}
+.tst-btn svg{width:20px;height:20px}
+.tst-dots{display:flex;gap:7px;align-items:center}
+.tst-dots button{
+  width:8px;height:8px;padding:0;border-radius:999px;border:0;cursor:pointer;
+  background:rgba(255,255,255,.22);transition:width .28s ease,background .28s ease;
+}
+.tst-dots button[aria-current="true"]{width:26px;background:var(--green-500)}
+.tst-disclaimer{
+  margin-top:20px;text-align:center;font-size:.79rem;color:var(--muted-2);
+  display:flex;gap:7px;justify-content:center;align-items:center;flex-wrap:wrap;
+}
+
+/* =====================================================================
+   10. FORMULÁRIO
+   ===================================================================== */
+.contact-grid{display:grid;gap:26px}
+@media (min-width:980px){ .contact-grid{grid-template-columns:.85fr 1.15fr;gap:40px;align-items:start} }
+.info-card{
+  background:linear-gradient(180deg,rgba(21,194,78,.1),rgba(255,255,255,.02));
+  border:1px solid rgba(21,194,78,.24);border-radius:var(--radius-lg);padding:22px;
+}
+.info-list{display:grid;gap:15px;margin-top:20px}
+.info-item{display:flex;gap:13px;align-items:flex-start}
+.info-item .ii{
+  width:38px;height:38px;flex:none;border-radius:11px;display:grid;place-items:center;
+  background:rgba(21,194,78,.14);border:1px solid rgba(21,194,78,.3);color:var(--green-400);
+}
+.info-item .ii svg{width:18px;height:18px}
+.info-item b{display:block;font-size:.73rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-weight:800}
+.info-item > div > span{display:block;font-size:.98rem;font-weight:700;margin-top:2px;letter-spacing:-.01em}
+.info-item .ph{display:inline-block;font-size:.85rem}
+
+.form-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.022));
+  border:1px solid var(--line);border-radius:var(--radius-lg);padding:22px;
+}
+@media (min-width:640px){ .form-card{padding:30px} }
+.fields{display:grid;gap:15px}
+@media (min-width:640px){ .f-row{display:grid;grid-template-columns:1fr 1fr;gap:15px} }
+.field label{display:block;font-size:.79rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.field label .req{color:var(--green-400)}
+.field input,.field textarea{
+  width:100%;padding:13px 14px;border-radius:12px;
+  background:rgba(0,0,0,.28);border:1px solid var(--line);
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+  font-size:16px; /* evita zoom automático no iOS */
+}
+.field textarea{resize:vertical;min-height:108px;line-height:1.55}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted-2)}
+.field input:focus,.field textarea:focus{
+  outline:none;border-color:var(--green-500);background:rgba(0,0,0,.4);
+  box-shadow:0 0 0 3px rgba(21,194,78,.16);
+}
+.field.err input,.field.err textarea{border-color:#FF6B6B;box-shadow:0 0 0 3px rgba(255,107,107,.14)}
+.err-msg{display:none;color:#FF8A8A;font-size:.78rem;margin-top:6px;font-weight:600}
+.field.err .err-msg{display:block}
+.form-foot{margin-top:20px;display:grid;gap:12px}
+.form-legal{font-size:.75rem;color:var(--muted-2);line-height:1.55}
+.form-status{
+  display:none;gap:10px;align-items:flex-start;padding:14px;border-radius:12px;font-size:.89rem;line-height:1.5;
+}
+.form-status.show{display:flex}
+.form-status svg{width:19px;height:19px;flex:none;margin-top:1px}
+.form-status.ok{background:rgba(21,194,78,.12);border:1px solid rgba(21,194,78,.4);color:#9BF7BC}
+.form-status.bad{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.4);color:#FFB3B3}
+.form-status.warn{background:rgba(255,196,0,.09);border:1px solid rgba(255,196,0,.42);color:#FFD76A}
+.spinner{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(0,0,0,.25);border-top-color:#03190C;animation:spin .7s linear infinite}
+.honey{position:absolute!important;left:-9999px!important;opacity:0;height:0;width:0}
+
+/* =====================================================================
+   11. RODAPÉ + BARRA FIXA MOBILE
+   ===================================================================== */
+.footer{border-top:1px solid var(--line);background:rgba(4,9,6,.6);margin-top:20px}
+.f-grid{display:grid;gap:30px;padding:48px 0 34px}
+@media (min-width:760px){ .f-grid{grid-template-columns:1.4fr 1fr 1fr} }
+.f-grid h4{font-size:.76rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:800;margin-bottom:14px}
+.f-grid li{margin-bottom:9px;font-size:.92rem;color:var(--muted)}
+.f-grid li a:hover{color:var(--green-400)}
+.f-bottom{
+  border-top:1px solid var(--line);padding:18px 0 calc(18px + env(safe-area-inset-bottom));
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;
+  font-size:.79rem;color:var(--muted-2);
+}
+body{padding-bottom:0}
+@media (max-width:939px){ body{padding-bottom:74px} }
+
+.mobile-bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  display:grid;grid-template-columns:1fr 1fr;gap:9px;
+  padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  background:rgba(6,13,9,.92);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+  transform:translateY(110%);transition:transform .32s cubic-bezier(.3,.9,.3,1);
+}
+.mobile-bar.show{transform:none}
+@media (min-width:940px){ .mobile-bar{display:none} }
+
+/* =====================================================================
+   12. ANIMAÇÕES DE ENTRADA (discretas)
+   ===================================================================== */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .62s ease, transform .62s cubic-bezier(.22,.85,.3,1);transition-delay:var(--d,0ms)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html:focus-within{scroll-behavior:auto}
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .spin-slow,.spin-rev,.chip-1,.chip-2,.chip-3,.spinner{animation:none!important}
+  .tst-track{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- =====================================================================
+     SPRITE DE ÍCONES (SVG original, inline — nada é carregado de fora)
+     ===================================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3BE07A"/><stop offset="1" stop-color="#0B7E2F"/>
+    </linearGradient>
+  </defs>
+
+  <symbol id="ic-engine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3.1"/><circle cx="12" cy="12" r="7.7"/>
+    <path d="M12 1.6v2.7M12 19.7v2.7M1.6 12h2.7M19.7 12h2.7M4.7 4.7l1.9 1.9M17.4 17.4l1.9 1.9M19.3 4.7l-1.9 1.9M6.6 17.4l-1.9 1.9"/>
+  </symbol>
+  <symbol id="ic-brake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.3"/>
+    <circle cx="12" cy="6.4" r=".85"/><circle cx="17.6" cy="12" r=".85"/><circle cx="12" cy="17.6" r=".85"/><circle cx="6.4" cy="12" r=".85"/>
+    <circle cx="8.05" cy="8.05" r=".85"/><circle cx="15.95" cy="15.95" r=".85"/><circle cx="15.95" cy="8.05" r=".85"/><circle cx="8.05" cy="15.95" r=".85"/>
+  </symbol>
+  <symbol id="ic-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13.4 2 4.8 13.3h5.9L10.3 22l8.9-11.5h-6z"/>
+  </symbol>
+  <symbol id="ic-spring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6.5 2.8h11M6.5 21.2h11M12 2.8v2.4M12 18.8v2.4"/>
+    <path d="M7.6 6.2h8.8L7.6 9.1h8.8L7.6 12h8.8L7.6 14.9h8.8L7.6 17.8h8.8"/>
+  </symbol>
+  <symbol id="ic-sprocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="8.2" stroke-dasharray="2.1 2.4"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.5"/>
+  </symbol>
+  <symbol id="ic-exhaust" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.4 15.2h7.4a5.2 5.2 0 0 0 5.2-5.2V8.6"/><rect x="13.6" y="4.6" width="7" height="4.2" rx="2.1"/>
+    <path d="M3.4 15.2v2.6h5.2v-2.6"/>
+  </symbol>
+  <symbol id="ic-tire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="6.6" stroke-dasharray="1.5 2.5"/>
+  </symbol>
+  <symbol id="ic-oil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2.6s6.2 6.8 6.2 10.7A6.2 6.2 0 0 1 5.8 13.3C5.8 9.4 12 2.6 12 2.6z"/><path d="M9.2 14.2a2.9 2.9 0 0 0 2.4 2.7"/>
+  </symbol>
+  <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2.6 4.4 5.9v6.2c0 4.7 3.2 7.8 7.6 9.3 4.4-1.5 7.6-4.6 7.6-9.3V5.9z"/>
+  </symbol>
+  <symbol id="ic-helmet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 14.6a9 9 0 0 1 18 0v1.6a1.8 1.8 0 0 1-1.8 1.8H9.4"/>
+    <path d="M3 14.6h10.6a3.1 3.1 0 0 1 3.1 3.1v.3"/><path d="M3 14.6v1.8a1.6 1.6 0 0 0 1.6 1.6h1.8"/>
+  </symbol>
+  <symbol id="ic-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3.3 7.4 12 2.8l8.7 4.6v9.2L12 21.2l-8.7-4.6z"/><path d="M3.3 7.4 12 12l8.7-4.6M12 12v9.2"/>
+  </symbol>
+  <symbol id="ic-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 21.5V3"/><path d="M5 4.2c4.2-1.9 8.4 1.9 12.6 0v9.6c-4.2 1.9-8.4-1.9-12.6 0z"/>
+  </symbol>
+  <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.4 2"/>
+  </symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 21.4s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z"/><circle cx="12" cy="10" r="2.7"/>
+  </symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6.3 3.2h3.1l1.6 3.9-2 1.4a12.3 12.3 0 0 0 5.4 5.4l1.4-2 3.9 1.6v3.1a1.9 1.9 0 0 1-2.1 1.9A16.2 16.2 0 0 1 4.4 5.3a1.9 1.9 0 0 1 1.9-2.1z"/>
+  </symbol>
+  <symbol id="ic-whats" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22.4l5.5-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.1.8.83-3-.2-.31A8.2 8.2 0 1 1 12 20.2z"/>
+    <path d="M17.2 14.3c-.28-.15-1.68-.83-1.94-.92-.26-.1-.45-.14-.64.14-.19.28-.74.92-.9 1.11-.17.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.41-1.68-1.58-1.96-.16-.28-.02-.44.12-.58.13-.13.28-.33.43-.5.14-.17.19-.28.28-.47.1-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 .97-1 2.37s1.02 2.75 1.17 2.94c.14.19 2.01 3.07 4.87 4.3.68.3 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.68-.68 1.91-1.35.24-.66.24-1.23.17-1.35-.07-.12-.26-.19-.54-.33z"/>
+  </symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2.8" y="4.8" width="18.4" height="14.4" rx="3"/><path d="m3.6 7 8.4 5.6L20.4 7"/>
+  </symbol>
+  <symbol id="ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 12h15M13 5.5l6.5 6.5L13 18.5"/>
+  </symbol>
+  <symbol id="ic-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"/></symbol>
+  <symbol id="ic-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 5.5 16 12l-6.5 6.5"/></symbol>
+  <symbol id="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"/></symbol>
+  <symbol id="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/></symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+  <symbol id="ic-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.2M12 16.3h.01"/>
+  </symbol>
+  <symbol id="ic-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 16.5v-5.2M12 7.7h.01"/>
+  </symbol>
+  <symbol id="ic-quote" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M10 6.2C6.6 7.6 4.9 10.3 4.9 14.2V19H11v-6.1H8.3c0-2.3.9-3.9 2.8-4.9zm9.1 0c-3.4 1.4-5.1 4.1-5.1 8V19h6.1v-6.1h-2.7c0-2.3.9-3.9 2.8-4.9z"/>
+  </symbol>
+  <symbol id="ic-bike" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="5.2" cy="16.6" r="3.6"/><circle cx="18.8" cy="16.6" r="3.6"/>
+    <path d="M5.2 16.6 9 10.2h5.1l1.9 3.2"/><path d="M9 10.2 7.4 7.6h2.9"/><path d="M14.1 10.2h3.4l1.3 6.4"/><path d="M12.2 13.4h3.6"/>
+  </symbol>
+</svg>
+
+<!-- =====================================================================
+     NAVEGAÇÃO
+     ===================================================================== -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#topo" class="logo" aria-label="Núcleo Motopeças e Acessórios — início">
+      <!--
+        LOGO (marca gráfica original em SVG, inspirada na identidade real da loja:
+        verde + branco, bandeira quadriculada de corrida).
+        >>> PARA USAR O LOGO REAL: troque este <svg> por
+            <img src="logo-nucleo.svg" alt="Núcleo Motopeças e Acessórios" class="logo-mark">
+            (ou converta o logo real para data-URI se quiser manter arquivo único).
+      -->
+      <svg class="logo-mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="url(#gGreen)"/>
+        <g fill="#fff" opacity=".95">
+          <rect x="0" y="50" width="8" height="7"/><rect x="16" y="50" width="8" height="7"/>
+          <rect x="32" y="50" width="8" height="7"/><rect x="48" y="50" width="8" height="7"/>
+          <rect x="8" y="57" width="8" height="7"/><rect x="24" y="57" width="8" height="7"/>
+          <rect x="40" y="57" width="8" height="7"/><rect x="56" y="57" width="8" height="7"/>
+        </g>
+        <path d="M18 45V12h7.4l13.2 19.4V12H46v33h-7.4L25.4 25.8V45z" fill="#fff"/>
+        <path d="M44 9l10 0-4 7-10 0z" fill="#fff" opacity=".55"/>
+      </svg>
+      <span class="logo-txt">
+        <b>NÚCLEO</b>
+        <span>Motopeças &amp; Acessórios</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+      <a href="#pecas">Peças</a>
+      <a href="#diferenciais">Por que a Núcleo</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div style="display:flex;align-items:center;gap:10px">
+      <a class="btn btn-primary btn-sm nav-cta" data-cta="primary" href="#contato">
+        <svg data-cta-icon aria-hidden="true"><use href="#ic-phone"/></svg>
+        <span data-cta-label>Ligar agora</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg aria-hidden="true"><use href="#ic-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Menu mobile (hambúrguer) -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mm-top">
+    <span class="logo">
+      <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="url(#gGreen)"/>
+        <path d="M18 45V12h7.4l13.2 19.4V12H46v33h-7.4L25.4 25.8V45z" fill="#fff"/>
+      </svg>
+      <span class="logo-txt"><b>NÚCLEO</b><span>Motopeças &amp; Acessórios</span></span>
+    </span>
+    <button class="burger" id="closeMenu" aria-label="Fechar menu">
+      <svg aria-hidden="true"><use href="#ic-close"/></svg>
+    </button>
+  </div>
+  <div class="mm-body">
+    <a class="mm-link" href="#pecas">Peças <svg aria-hidden="true"><use href="#ic-arrow"/></svg></a>
+    <a class="mm-link" href="#diferenciais">Por que a Núcleo <svg aria-hidden="true"><use href="#ic-arrow"/></svg></a>
+    <a class="mm-link" href="#como-funciona">Como funciona <svg aria-hidden="true"><use href="#ic-arrow"/></svg></a>
+    <a class="mm-link" href="#depoimentos">Depoimentos <svg aria-hidden="true"><use href="#ic-arrow"/></svg></a>
+    <a class="mm-link" href="#contato">Contato <svg aria-hidden="true"><use href="#ic-arrow"/></svg></a>
+
+    <div class="mm-actions">
+      <a class="btn btn-primary btn-block" data-cta="primary" href="#contato">
+        <svg data-cta-icon aria-hidden="true"><use href="#ic-phone"/></svg>
+        <span data-cta-label>Ligar agora</span>
+      </a>
+      <a class="btn btn-ghost btn-block" href="#contato">
+        <svg aria-hidden="true"><use href="#ic-box"/></svg>
+        Pedir uma peça
+      </a>
+    </div>
+
+    <p class="mm-info">
+      <strong style="color:var(--text)">Núcleo Motopeças e Acessórios</strong><br>
+      Campinas — SP<br>
+      Telefone: <a href="tel:+551932767035" style="color:var(--green-400);font-weight:700">(19) 3276-7035</a><br>
+      Endereço: <span class="ph">[endereço aqui]</span><br>
+      Horário: <span class="ph">[horário de funcionamento aqui]</span>
+    </p>
+  </div>
+</div>
+
+<main id="topo">
+
+  <!-- =====================================================================
+       1. HERO
+       ===================================================================== -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow reveal"><span class="dot"></span> Campinas · SP · Só peças de moto</span>
+
+        <h1 class="reveal" style="--d:70ms">
+          Moto parada é<br>corrida perdida.<br>
+          <span class="grad">A peça tá aqui.</span>
+        </h1>
+
+        <p class="lead reveal" style="--d:140ms">
+          Estoque grande e variado de peças e acessórios para moto — motor, freio,
+          elétrica, suspensão, transmissão e muito mais. Você chega, diz o que precisa
+          e volta pra rua rápido.
+        </p>
+
+        <div class="hero-actions reveal" style="--d:210ms">
+          <a class="btn btn-primary" data-cta="primary" href="#contato">
+            <svg data-cta-icon aria-hidden="true"><use href="#ic-phone"/></svg>
+            <span data-cta-label>Ligar agora</span>
+          </a>
+          <a class="btn btn-ghost" href="#contato">
+            <svg aria-hidden="true"><use href="#ic-box"/></svg>
+            Pedir peça pelo formulário
+          </a>
+        </div>
+
+        <p class="hero-note reveal" style="--d:260ms">
+          <svg aria-hidden="true"><use href="#ic-info"/></svg>
+          <span>Somente <strong>venda de peças e acessórios</strong>. Não realizamos serviço de oficina nem mecânica.</span>
+        </p>
+
+        <div class="trust reveal" style="--d:320ms">
+          <div>
+            <b>Estoque amplo</b>
+            <span>Várias categorias de peça na loja</span>
+          </div>
+          <div>
+            <b>Atendimento rápido</b>
+            <span>Direto no balcão, sem enrolação</span>
+          </div>
+          <div>
+            <b>Ponto dos motoboys</b>
+            <span>Quem roda em Campinas conhece</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arte do hero: composição 100% SVG/CSS original (disco de freio +
+           coroa + bandeira quadriculada). Nenhuma foto de terceiros. -->
+      <div class="hero-art reveal" style="--d:380ms" aria-hidden="true">
+        <div class="halo"></div>
+        <svg class="disc" viewBox="0 0 400 400">
+          <!-- anel quadriculado externo (feito com dasharray = efeito bandeira) -->
+          <g class="spin-slow">
+            <circle cx="200" cy="200" r="184" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="12" stroke-dasharray="18.05 18.05"/>
+            <circle cx="200" cy="200" r="184" fill="none" stroke="#11A73F" stroke-width="12" stroke-dasharray="18.05 18.05" stroke-dashoffset="18.05"/>
+          </g>
+          <!-- coroa / sprocket -->
+          <g class="spin-rev">
+            <circle cx="200" cy="200" r="156" fill="none" stroke="rgba(21,194,78,.55)" stroke-width="16" stroke-dasharray="6 16" stroke-linecap="round"/>
+          </g>
+          <!-- disco de freio -->
+          <circle cx="200" cy="200" r="132" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+          <circle cx="200" cy="200" r="104" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1.5"/>
+          <g class="spin-slow" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="2">
+            <circle cx="200" cy="200" r="118" stroke-dasharray="2 22" stroke-linecap="round" stroke-width="7"/>
+          </g>
+          <!-- centro: marca -->
+          <circle cx="200" cy="200" r="86" fill="#0A1710" stroke="rgba(21,194,78,.4)" stroke-width="2"/>
+          <circle cx="200" cy="200" r="86" fill="url(#heroGlow)"/>
+          <defs>
+            <radialGradient id="heroGlow" cx=".5" cy=".3" r=".8">
+              <stop offset="0" stop-color="#15C24E" stop-opacity=".25"/>
+              <stop offset="1" stop-color="#15C24E" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <!-- moto de competição estilizada (linha, original) -->
+          <g transform="translate(200 200) scale(1.55) translate(-24 -20)" fill="none" stroke="#EDF5EF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9.5" cy="27" r="6.6" stroke="#3BE07A"/>
+            <circle cx="38" cy="27" r="6.6" stroke="#3BE07A"/>
+            <circle cx="9.5" cy="27" r="2.2" stroke="rgba(255,255,255,.45)"/>
+            <circle cx="38" cy="27" r="2.2" stroke="rgba(255,255,255,.45)"/>
+            <path d="M9.5 27 17 15.5h10.5l3.6 6.2"/>
+            <path d="M17 15.5 14 11.4h5.6"/>
+            <path d="M27.5 15.5h6.8L38 27"/>
+            <path d="M23.5 21.4h7.6"/>
+            <path d="M31.4 12.6c2.8.6 4.6 2 5.6 4.2" stroke="#3BE07A"/>
+            <path d="M6 12.5h6M3.5 16.5h7M5 20.5h5.5" stroke="rgba(21,194,78,.75)"/>
+          </g>
+        </svg>
+
+        <span class="chip-float chip-1"><svg><use href="#ic-brake"/></svg> Freios</span>
+        <span class="chip-float chip-2"><svg><use href="#ic-bolt"/></svg> Elétrica</span>
+        <span class="chip-float chip-3"><svg><use href="#ic-sprocket"/></svg> Transmissão</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="checker-strip checker green" aria-hidden="true"></div>
+
+  <!-- =====================================================================
+       2. CATEGORIAS DE PEÇA
+       ===================================================================== -->
+  <section class="section" id="pecas">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow reveal">Estoque</span>
+        <h2 class="reveal" style="--d:60ms">Peça de <span class="grad">quase tudo</span> que a sua moto pede</h2>
+        <p class="lead reveal" style="--d:120ms">
+          Trabalhamos com um estoque grande, cobrindo várias categorias.
+          Se você não achar aqui na lista, pergunta mesmo assim — tem muita coisa na prateleira.
+        </p>
+      </div>
+
+      <div class="cat-grid">
+        <!-- Categorias baseadas nas informações passadas pela loja.
+             >>> Ajuste/complete esta lista conforme o estoque real. -->
+        <a class="cat reveal" href="#contato"><svg><use href="#ic-engine"/></svg><b>Motor</b><span>Kits, juntas, comando, pistão</span></a>
+        <a class="cat reveal" style="--d:40ms" href="#contato"><svg><use href="#ic-brake"/></svg><b>Freios</b><span>Pastilhas, discos, lonas, cabos</span></a>
+        <a class="cat reveal" style="--d:80ms" href="#contato"><svg><use href="#ic-bolt"/></svg><b>Elétrica</b><span>Bateria, CDI, relé, chicote, lâmpadas</span></a>
+        <a class="cat reveal" style="--d:120ms" href="#contato"><svg><use href="#ic-spring"/></svg><b>Suspensão</b><span>Amortecedor, bengala, retentor</span></a>
+        <a class="cat reveal" style="--d:160ms" href="#contato"><svg><use href="#ic-sprocket"/></svg><b>Transmissão</b><span>Kit relação, corrente, coroa, pinhão</span></a>
+        <a class="cat reveal" href="#contato"><svg><use href="#ic-tire"/></svg><b>Pneus e rodas</b><span>Câmara, raio, rolamento</span></a>
+        <a class="cat reveal" style="--d:40ms" href="#contato"><svg><use href="#ic-oil"/></svg><b>Óleos e filtros</b><span>Filtro de ar, óleo, vela</span></a>
+        <a class="cat reveal" style="--d:80ms" href="#contato"><svg><use href="#ic-exhaust"/></svg><b>Escapamento</b><span>Ponteira, curva, abraçadeira</span></a>
+        <a class="cat reveal" style="--d:120ms" href="#contato"><svg><use href="#ic-shield"/></svg><b>Carenagem</b><span>Plásticos, paralama, farolete</span></a>
+        <a class="cat reveal" style="--d:160ms" href="#contato"><svg><use href="#ic-helmet"/></svg><b>Acessórios</b><span>Baú, capacete, capa de banco</span></a>
+      </div>
+
+      <p class="small muted center" style="margin-top:22px">
+        Marcas e linhas trabalhadas: <span class="ph">[listar marcas aqui]</span> ·
+        Modelos atendidos: <span class="ph">[confirmar com a loja]</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       3. DIFERENCIAIS
+       ===================================================================== -->
+  <section class="section" id="diferenciais" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow reveal">Por que a Núcleo</span>
+        <h2 class="reveal" style="--d:60ms">Feita pra quem <span class="grad">não pode parar</span></h2>
+        <p class="lead reveal" style="--d:120ms">
+          Quem trabalha em cima da moto não tem tempo de rodar a cidade atrás de peça.
+          A Núcleo existe pra resolver na primeira parada.
+        </p>
+      </div>
+
+      <div class="feat-grid">
+        <article class="card reveal">
+          <div class="icon-box"><svg><use href="#ic-box"/></svg></div>
+          <h3>Estoque grande e variado</h3>
+          <p class="muted small" style="margin-top:8px">
+            Prateleira cheia, de peça de motor a acessório. Menos “vou ter que pedir”,
+            mais “tá aqui, pode levar”.
+          </p>
+        </article>
+
+        <article class="card reveal" style="--d:70ms">
+          <div class="icon-box"><svg><use href="#ic-clock"/></svg></div>
+          <h3>Atendimento rápido</h3>
+          <p class="muted small" style="margin-top:8px">
+            Balcão direto e objetivo. Você descreve a peça ou o modelo da moto
+            e a gente já localiza.
+          </p>
+        </article>
+
+        <article class="card reveal" style="--d:140ms">
+          <div class="icon-box"><svg><use href="#ic-bike"/></svg></div>
+          <h3>Referência entre motoboys</h3>
+          <p class="muted small" style="margin-top:8px">
+            Boa parte dos nossos clientes é motoboy de aplicativo e entrega —
+            gente que volta sempre porque sabe que resolve.
+          </p>
+        </article>
+
+        <article class="card reveal" style="--d:210ms">
+          <div class="icon-box"><svg><use href="#ic-flag"/></svg></div>
+          <h3>Foco só em peças</h3>
+          <p class="muted small" style="margin-top:8px">
+            Não fazemos oficina. Nosso trabalho é ter a peça certa disponível —
+            e é nisso que a gente é bom.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       4. COMO FUNCIONA
+       ===================================================================== -->
+  <section class="section" id="como-funciona" style="padding-top:0">
+    <div class="wrap">
+      <div class="card" style="padding:30px 22px">
+        <div class="sec-head" style="margin-bottom:34px">
+          <span class="eyebrow reveal">Como funciona</span>
+          <h2 class="reveal" style="--d:60ms;font-size:clamp(1.4rem,4.4vw,2.1rem)">Três passos e você volta pra rua</h2>
+        </div>
+        <div class="steps">
+          <div class="step reveal">
+            <b>Diga a peça e o modelo</b>
+            <p>Pelo telefone ou pelo formulário aqui do site. Vale foto da peça também.</p>
+          </div>
+          <div class="step reveal" style="--d:80ms">
+            <b>A gente confere no estoque</b>
+            <p>Confirmamos disponibilidade e passamos o preço antes de você sair de casa.</p>
+          </div>
+          <div class="step reveal" style="--d:160ms">
+            <b>Você retira na loja</b>
+            <p>Separada e pronta no balcão. Retirada em <span class="ph">[endereço aqui]</span>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       5. DEPOIMENTOS (carrossel)
+       ===================================================================== -->
+  <section class="section" id="depoimentos" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow reveal">Prova social</span>
+        <h2 class="reveal" style="--d:60ms">Quem roda o dia inteiro <span class="grad">indica</span></h2>
+      </div>
+
+      <!--
+        ⚠️⚠️⚠️  ATENÇÃO — DEPOIMENTOS DE EXEMPLO  ⚠️⚠️⚠️
+        Os depoimentos abaixo são FICTÍCIOS, apenas para demonstrar o layout.
+        NÃO são avaliações reais e NÃO devem ir ao ar como se fossem.
+        >>> Substitua o array TESTIMONIALS no <script> por avaliações reais
+            (Google, WhatsApp, recados de clientes) com autorização.
+        >>> Enquanto forem exemplos, mantenha o aviso visível abaixo do carrossel.
+      -->
+      <div class="tst reveal" style="--d:100ms">
+        <div class="tst-viewport" id="tstViewport" tabindex="0" role="region" aria-roledescription="carrossel" aria-label="Depoimentos de clientes">
+          <div class="tst-track" id="tstTrack"><!-- slides injetados via JS --></div>
+        </div>
+
+        <div class="tst-ctrls">
+          <button class="tst-btn" id="tstPrev" aria-label="Depoimento anterior"><svg aria-hidden="true"><use href="#ic-left"/></svg></button>
+          <div class="tst-dots" id="tstDots" role="tablist" aria-label="Escolher depoimento"></div>
+          <button class="tst-btn" id="tstNext" aria-label="Próximo depoimento"><svg aria-hidden="true"><use href="#ic-right"/></svg></button>
+        </div>
+
+        <p class="tst-disclaimer">
+          <svg style="width:14px;height:14px" aria-hidden="true"><use href="#ic-alert"/></svg>
+          <span>Depoimentos ilustrativos (exemplos). Serão substituídos por avaliações reais de clientes.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       6. CONTATO / FORMULÁRIO
+       ===================================================================== -->
+  <section class="section" id="contato" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow reveal">Contato</span>
+        <h2 class="reveal" style="--d:60ms">Fala qual é a peça que <span class="grad">a gente procura</span></h2>
+        <p class="lead reveal" style="--d:120ms">
+          Descreva a peça e o modelo da sua moto. A gente confere no estoque e retorna
+          o mais rápido possível.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- coluna de informações -->
+        <aside class="info-card reveal">
+          <h3 style="font-size:1.15rem">Atendimento direto</h3>
+          <p class="muted small" style="margin-top:8px">
+            Prefere resolver na hora? Chama no telefone. Se preferir, deixa os dados
+            no formulário que a gente retorna.
+          </p>
+
+          <div class="info-list">
+            <div class="info-item">
+              <span class="ii"><svg><use href="#ic-phone"/></svg></span>
+              <div>
+                <b>Telefone</b>
+                <span><a href="tel:+551932767035" style="color:var(--green-400)">(19) 3276-7035</a></span>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="ii"><svg><use href="#ic-pin"/></svg></span>
+              <div>
+                <b>Endereço</b>
+                <span class="ph">[endereço completo aqui]</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="ii"><svg><use href="#ic-clock"/></svg></span>
+              <div>
+                <b>Horário</b>
+                <span class="ph">[horário de funcionamento aqui]</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="ii"><svg><use href="#ic-mail"/></svg></span>
+              <div>
+                <b>E-mail</b>
+                <span class="ph">[e-mail aqui]</span>
+              </div>
+            </div>
+          </div>
+
+          <a class="btn btn-primary btn-block" data-cta="primary" href="#contato" style="margin-top:22px">
+            <svg data-cta-icon aria-hidden="true"><use href="#ic-phone"/></svg>
+            <span data-cta-label>Ligar agora</span>
+          </a>
+          <p class="small muted" style="margin-top:12px;font-size:.76rem">
+            Somente venda de peças e acessórios — não realizamos serviço de oficina.
+          </p>
+        </aside>
+
+        <!-- formulário -->
+        <div class="form-card reveal" style="--d:80ms">
+          <form id="leadForm" novalidate>
+            <div class="fields">
+              <div class="f-row">
+                <div class="field" id="f-nome">
+                  <label for="nome">Nome <span class="req">*</span></label>
+                  <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como te chamam?" required />
+                  <span class="err-msg">Digite seu nome.</span>
+                </div>
+                <div class="field" id="f-telefone">
+                  <label for="telefone">WhatsApp / Telefone <span class="req">*</span></label>
+                  <input id="telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(19) 99999-9999" required />
+                  <span class="err-msg">Digite um telefone válido com DDD.</span>
+                </div>
+              </div>
+
+              <div class="field" id="f-email">
+                <label for="email">E-mail <span class="muted" style="text-transform:none;letter-spacing:0;font-weight:600">(opcional)</span></label>
+                <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@email.com" />
+                <span class="err-msg">E-mail inválido.</span>
+              </div>
+
+              <div class="field" id="f-peca">
+                <label for="peca">Qual peça você precisa? <span class="req">*</span></label>
+                <textarea id="peca" name="peca" placeholder="Ex.: Kit relação para Honda CG 160 Fan 2021. Preciso hoje, se possível." required></textarea>
+                <span class="err-msg">Conte qual peça e o modelo da moto.</span>
+              </div>
+
+              <!-- anti-spam (honeypot): humanos não veem, robôs preenchem -->
+              <input class="honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            </div>
+
+            <div class="form-foot">
+              <button class="btn btn-primary btn-block" type="submit" id="submitBtn">
+                <span class="btn-txt" style="display:inline-flex;align-items:center;gap:9px">
+                  <svg aria-hidden="true"><use href="#ic-arrow"/></svg> Enviar pedido de peça
+                </span>
+              </button>
+
+              <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+
+              <p class="form-legal">
+                Ao enviar, você autoriza o contato da Núcleo Motopeças sobre este pedido.
+                Não usamos seus dados para nada além disso.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- =====================================================================
+     RODAPÉ
+     ===================================================================== -->
+<footer class="footer">
+  <div class="checker-strip checker" aria-hidden="true" style="opacity:.25"></div>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <span class="logo" style="margin-bottom:14px">
+          <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="url(#gGreen)"/>
+            <g fill="#fff" opacity=".95">
+              <rect x="0" y="50" width="8" height="7"/><rect x="16" y="50" width="8" height="7"/>
+              <rect x="32" y="50" width="8" height="7"/><rect x="48" y="50" width="8" height="7"/>
+              <rect x="8" y="57" width="8" height="7"/><rect x="24" y="57" width="8" height="7"/>
+              <rect x="40" y="57" width="8" height="7"/><rect x="56" y="57" width="8" height="7"/>
+            </g>
+            <path d="M18 45V12h7.4l13.2 19.4V12H46v33h-7.4L25.4 25.8V45z" fill="#fff"/>
+          </svg>
+          <span class="logo-txt"><b>NÚCLEO</b><span>Motopeças &amp; Acessórios</span></span>
+        </span>
+        <p class="muted small" style="max-width:38ch;margin-top:12px">
+          Loja de peças e acessórios para moto em Campinas-SP.
+          Estoque grande, atendimento rápido e foco em quem vive em cima da moto.
+        </p>
+        <p class="small" style="margin-top:14px;color:var(--muted-2)">
+          Não realizamos serviço de oficina ou mecânica.
+        </p>
+      </div>
+
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="tel:+551932767035">(19) 3276-7035</a></li>
+          <li>Endereço: <span class="ph">[endereço aqui]</span></li>
+          <li>Horário: <span class="ph">[horário aqui]</span></li>
+          <li>E-mail: <span class="ph">[e-mail aqui]</span></li>
+          <li>Instagram: <span class="ph">[@perfil aqui]</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="#pecas">Peças</a></li>
+          <li><a href="#diferenciais">Por que a Núcleo</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="f-bottom">
+      <span>© <span id="year">2026</span> Núcleo Motopeças e Acessórios · Campinas-SP</span>
+      <span>CNPJ: <span class="ph">[CNPJ aqui]</span></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Barra fixa de ação no mobile -->
+<div class="mobile-bar" id="mobileBar">
+  <a class="btn btn-primary" data-cta="primary" href="#contato">
+    <svg data-cta-icon aria-hidden="true"><use href="#ic-phone"/></svg>
+    <span data-cta-label>Ligar agora</span>
+  </a>
+  <a class="btn btn-ghost" href="#contato">
+    <svg aria-hidden="true"><use href="#ic-box"/></svg>
+    Pedir peça
+  </a>
+</div>
+
+<script>
+/* =====================================================================
+   ⚙️  CONFIGURAÇÃO RÁPIDA — edite SOMENTE este bloco
+   ---------------------------------------------------------------------
+   1) ctaMode ......: 'call' (ligar) ou 'whatsapp' (abrir conversa).
+      O número (19) 3276-7035 tem 8 dígitos = provavelmente fixo, então
+      o site começa em 'call'. ASSIM QUE CONFIRMAR que existe WhatsApp:
+        • troque ctaMode para 'whatsapp'
+        • preencha whatsappNumber com o número real (só dígitos, com 55)
+      Todos os botões principais do site mudam sozinhos.
+   2) sheetsEndpoint: URL do app da web do Google Apps Script (doPost).
+      Veja o passo a passo em LEIA-ME.md / google-apps-script/Codigo.gs
+   ===================================================================== */
+var CONFIG = {
+  ctaMode: 'call',                 // 'call'  |  'whatsapp'
+
+  phoneDisplay: '(19) 3276-7035',
+  phoneTel: '+551932767035',       // usado no link tel:
+
+  // ⚠️ NÃO CONFIRMADO: preencher só depois de validar que a loja tem WhatsApp.
+  whatsappNumber: '5519XXXXXXXXX', // formato: 55 + DDD + número, só dígitos
+  whatsappMessage: 'Olá! Vim pelo site. Preciso de uma peça: ',
+
+  // ⚠️ Cole aqui a URL do app da web do Apps Script (termina em /exec)
+  sheetsEndpoint: 'COLE_AQUI_A_URL_DO_APPS_SCRIPT',
+
+  storeName: 'Núcleo Motopeças e Acessórios'
+};
+
+/* =====================================================================
+   ⚠️ DEPOIMENTOS DE EXEMPLO — SUBSTITUIR POR AVALIAÇÕES REAIS
+   ---------------------------------------------------------------------
+   Nada aqui é real. São textos genéricos só para o layout.
+   Regras ao substituir:
+     • usar apenas depoimentos verdadeiros e autorizados;
+     • não inventar nota/estrelas nem quantidade de avaliações;
+     • depois de trocar, remover o aviso "Depoimentos ilustrativos"
+       que aparece embaixo do carrossel (procure por tst-disclaimer).
+   ===================================================================== */
+var TESTIMONIALS = [
+  { text:'Exemplo de depoimento: cheguei sem saber o nome certo da peça, mostrei a foto e em poucos minutos já estava no balcão.', name:'[Nome do cliente]', role:'Motoboy · Campinas-SP', initials:'MC' },
+  { text:'Exemplo de depoimento: raramente preciso rodar pra outra loja. O que eu procuro, normalmente tem em estoque.', name:'[Nome do cliente]', role:'Entregador de aplicativo', initials:'EA' },
+  { text:'Exemplo de depoimento: atendimento direto, sem enrolação. Pra quem trabalha na moto o dia todo isso faz diferença.', name:'[Nome do cliente]', role:'Motoboy · Campinas-SP', initials:'MB' },
+  { text:'Exemplo de depoimento: liguei antes, confirmaram a peça e separaram. Cheguei, paguei e voltei pra rua.', name:'[Nome do cliente]', role:'Cliente frequente', initials:'CF' },
+  { text:'Exemplo de depoimento: variedade boa de peça de motor, freio e elétrica. Resolve na primeira parada.', name:'[Nome do cliente]', role:'Motociclista', initials:'MT' }
+];
+
+(function () {
+  'use strict';
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------------------------------------------------------
+     A. CTA PRINCIPAL — alterna entre "Ligar agora" e "WhatsApp"
+     --------------------------------------------------------------- */
+  function applyCta() {
+    var isWhats = CONFIG.ctaMode === 'whatsapp';
+    var waOk = isWhats && /^\d{12,13}$/.test(CONFIG.whatsappNumber);
+
+    var href, label, icon, aria;
+    if (waOk) {
+      href  = 'https://wa.me/' + CONFIG.whatsappNumber + '?text=' + encodeURIComponent(CONFIG.whatsappMessage);
+      label = 'Chamar no WhatsApp';
+      icon  = '#ic-whats';
+      aria  = 'Chamar a ' + CONFIG.storeName + ' no WhatsApp';
+    } else {
+      if (isWhats) {
+        console.warn('[Núcleo] ctaMode = "whatsapp" mas CONFIG.whatsappNumber não é válido. Usando "Ligar agora".');
+      }
+      href  = 'tel:' + CONFIG.phoneTel;
+      label = 'Ligar agora';
+      icon  = '#ic-phone';
+      aria  = 'Ligar para ' + CONFIG.storeName + ' — ' + CONFIG.phoneDisplay;
+    }
+
+    $$('[data-cta="primary"]').forEach(function (el) {
+      el.setAttribute('href', href);
+      el.setAttribute('aria-label', aria);
+      if (waOk) { el.setAttribute('target', '_blank'); el.setAttribute('rel', 'noopener'); }
+      var lb = $('[data-cta-label]', el); if (lb) lb.textContent = label;
+      var ic = $('[data-cta-icon] use', el); if (ic) { ic.setAttribute('href', icon); ic.setAttribute('xlink:href', icon); }
+    });
+  }
+  applyCta();
+  window.setCtaMode = function (mode) { CONFIG.ctaMode = mode; applyCta(); }; // atalho para testar no console
+
+  /* ---------------------------------------------------------------
+     B. NAV: fundo/blur ao rolar + menu hambúrguer + scroll suave
+     --------------------------------------------------------------- */
+  var nav = $('#nav');
+  var mobileBar = $('#mobileBar');
+  var lastY = 0;
+
+  function onScroll() {
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    nav.classList.toggle('scrolled', y > 24);
+    if (mobileBar) mobileBar.classList.toggle('show', y > 340);
+    lastY = y;
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var menu = $('#mobileMenu'), burger = $('#burger'), closeBtn = $('#closeMenu');
+  function setMenu(open) {
+    menu.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', function () { setMenu(!menu.classList.contains('open')); });
+  closeBtn.addEventListener('click', function () { setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
+  // scroll suave com compensação da altura da navbar
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      setMenu(false);
+      var top = target.getBoundingClientRect().top + window.pageYOffset - (id === '#topo' ? 0 : 74);
+      window.scrollTo({ top: Math.max(top, 0), behavior: reduceMotion ? 'auto' : 'smooth' });
+      // em file:// alguns navegadores bloqueiam replaceState — por isso o try/catch
+      try { if (history.replaceState) history.replaceState(null, '', id); } catch (ignore) {}
+    });
+  });
+
+  /* ---------------------------------------------------------------
+     C. ANIMAÇÕES DE ENTRADA (discretas)
+     --------------------------------------------------------------- */
+  var revealEls = $$('.reveal');
+  if (!('IntersectionObserver' in window) || reduceMotion) {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------------------------------------------------------------
+     D. LINK ATIVO NA NAV (scroll spy)
+     --------------------------------------------------------------- */
+  var navAnchors = $$('#navLinks a');
+  var sections = navAnchors.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window && sections.length) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        navAnchors.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+
+  /* ---------------------------------------------------------------
+     E. CARROSSEL DE DEPOIMENTOS
+     --------------------------------------------------------------- */
+  var track = $('#tstTrack'), dotsWrap = $('#tstDots'), viewport = $('#tstViewport');
+  var index = 0, perView = 1, timer = null, paused = false;
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+
+  function buildSlides() {
+    track.innerHTML = TESTIMONIALS.map(function (t, i) {
+      return '<div class="tst-slide" role="group" aria-roledescription="depoimento" aria-label="' + (i + 1) + ' de ' + TESTIMONIALS.length + '">' +
+        '<figure class="tst-card">' +
+          '<svg class="q" aria-hidden="true"><use href="#ic-quote"/></svg>' +
+          '<blockquote style="margin:0"><p>' + esc(t.text) + '</p></blockquote>' +
+          '<figcaption class="tst-who">' +
+            '<span class="tst-av" aria-hidden="true">' + esc(t.initials) + '</span>' +
+            '<span class="tst-meta"><b>' + esc(t.name) + '</b><span>' + esc(t.role) + '</span></span>' +
+          '</figcaption>' +
+        '</figure>' +
+      '</div>';
+    }).join('');
+  }
+
+  function pages() { return Math.max(1, TESTIMONIALS.length - perView + 1); }
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    for (var i = 0; i < pages(); i++) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', 'Ir para o depoimento ' + (i + 1));
+      (function (i) { b.addEventListener('click', function () { go(i, true); }); })(i);
+      dotsWrap.appendChild(b);
+    }
+  }
+
+  function layout() {
+    var pv = window.innerWidth >= 1024 ? 2 : 1;
+    if (pv !== perView) { perView = pv; buildDots(); }
+    $$('.tst-slide', track).forEach(function (s) { s.style.flexBasis = (100 / perView) + '%'; });
+    go(Math.min(index, pages() - 1), false);
+  }
+
+  function go(i, user) {
+    index = (i + pages()) % pages();
+    track.style.transform = 'translateX(' + (-index * (100 / perView)) + '%)';
+    $$('button', dotsWrap).forEach(function (d, di) { d.setAttribute('aria-current', String(di === index)); });
+    if (user) restart();
+  }
+
+  function next() { go(index + 1); }
+  function prev() { go(index - 1); }
+  function restart() { stop(); start(); }
+  function start() { if (reduceMotion || paused || pages() < 2) return; timer = setInterval(next, 6500); }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+  if (track) {
+    buildSlides();
+    buildDots();
+    layout();
+    start();
+
+    $('#tstNext').addEventListener('click', function () { next(); restart(); });
+    $('#tstPrev').addEventListener('click', function () { prev(); restart(); });
+
+    ['mouseenter', 'focusin'].forEach(function (ev) { viewport.addEventListener(ev, function () { paused = true; stop(); }); });
+    ['mouseleave', 'focusout'].forEach(function (ev) { viewport.addEventListener(ev, function () { paused = false; start(); }); });
+    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+
+    viewport.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); restart(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); prev(); restart(); }
+    });
+
+    // swipe (touch / mouse drag)
+    var sx = 0, sy = 0, dragging = false;
+    viewport.addEventListener('touchstart', function (e) {
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY; dragging = true; stop();
+    }, { passive: true });
+    viewport.addEventListener('touchend', function (e) {
+      if (!dragging) return; dragging = false;
+      var dx = e.changedTouches[0].clientX - sx;
+      var dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy)) { dx < 0 ? next() : prev(); }
+      start();
+    }, { passive: true });
+
+    var rT;
+    window.addEventListener('resize', function () { clearTimeout(rT); rT = setTimeout(layout, 140); });
+  }
+
+  /* ---------------------------------------------------------------
+     F. FORMULÁRIO → GOOGLE SHEETS (via Google Apps Script doPost)
+     --------------------------------------------------------------- */
+  var form = $('#leadForm'), statusEl = $('#formStatus'), submitBtn = $('#submitBtn');
+
+  // máscara de telefone brasileira, tolerante (fixo e celular)
+  var telInput = $('#telefone');
+  telInput.addEventListener('input', function () {
+    var d = telInput.value.replace(/\D/g, '').slice(0, 11);
+    var out = d;
+    if (d.length > 2)  out = '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    if (d.length > 6)  out = '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length > 10 ? 7 : 6) + '-' + d.slice(d.length > 10 ? 7 : 6);
+    telInput.value = out;
+  });
+
+  function setErr(id, on) { $('#' + id).classList.toggle('err', !!on); }
+
+  function showStatus(kind, html) {
+    var icons = { ok: '#ic-check', bad: '#ic-alert', warn: '#ic-alert' };
+    statusEl.className = 'form-status show ' + kind;
+    statusEl.innerHTML = '<svg aria-hidden="true"><use href="' + icons[kind] + '"/></svg><span>' + html + '</span>';
+  }
+
+  function loading(on) {
+    submitBtn.disabled = on;
+    submitBtn.style.opacity = on ? '.75' : '';
+    submitBtn.innerHTML = on
+      ? '<span class="btn-txt" style="display:inline-flex;align-items:center;gap:10px"><span class="spinner"></span> Enviando…</span>'
+      : '<span class="btn-txt" style="display:inline-flex;align-items:center;gap:9px"><svg aria-hidden="true"><use href="#ic-arrow"/></svg> Enviar pedido de peça</span>';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var nome = $('#nome').value.trim();
+    var tel  = $('#telefone').value.trim();
+    var mail = $('#email').value.trim();
+    var peca = $('#peca').value.trim();
+    var honey = form.querySelector('[name="website"]').value;
+
+    var telDigits = tel.replace(/\D/g, '');
+    var okNome = nome.length >= 2;
+    var okTel  = telDigits.length >= 10 && telDigits.length <= 11;
+    var okMail = mail === '' || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail);
+    var okPeca = peca.length >= 4;
+
+    setErr('f-nome', !okNome); setErr('f-telefone', !okTel);
+    setErr('f-email', !okMail); setErr('f-peca', !okPeca);
+
+    if (!(okNome && okTel && okMail && okPeca)) {
+      showStatus('bad', 'Confira os campos destacados e tente de novo.');
+      var firstErr = form.querySelector('.field.err input, .field.err textarea');
+      if (firstErr) firstErr.focus();
+      return;
+    }
+    if (honey) return; // bot
+
+    var payload = {
+      nome: nome,
+      telefone: tel,
+      email: mail,
+      peca: peca,
+      origem: 'Landing page — Núcleo Motopeças',
+      pagina: location.href,
+      enviadoEm: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+    };
+
+    // Endpoint ainda não configurado: avisa o dono do site em vez de fingir sucesso.
+    if (!/^https:\/\/script\.google\.com\/.+\/exec$/.test(CONFIG.sheetsEndpoint)) {
+      console.warn('[Núcleo] CONFIG.sheetsEndpoint não configurado. Dados que seriam enviados:', payload);
+      showStatus('warn',
+        '<b>Integração ainda não configurada.</b><br>' +
+        'Cole a URL do app da web do Google Apps Script em <code>CONFIG.sheetsEndpoint</code> ' +
+        '(instruções em <code>LEIA-ME.md</code>). Enquanto isso, chame no telefone ' +
+        '<a href="tel:' + CONFIG.phoneTel + '" style="color:inherit;text-decoration:underline">' + CONFIG.phoneDisplay + '</a>.');
+      return;
+    }
+
+    loading(true);
+    statusEl.classList.remove('show');
+
+    // text/plain evita preflight CORS — o Apps Script faz JSON.parse(e.postData.contents)
+    fetch(CONFIG.sheetsEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      redirect: 'follow'
+    })
+      .then(function (r) { return r.json().catch(function () { return { result: 'success' }; }); })
+      .then(function (data) {
+        if (data && data.result === 'error') throw new Error(data.message || 'erro');
+        form.reset();
+        showStatus('ok', '<b>Pedido enviado!</b><br>Recebemos sua mensagem e vamos retornar no contato informado.');
+        loading(false);
+      })
+      .catch(function () {
+        // Fallback: reenvia em modo no-cors (não dá pra ler a resposta, mas costuma gravar)
+        fetch(CONFIG.sheetsEndpoint, {
+          method: 'POST', mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        }).then(function () {
+          form.reset();
+          showStatus('ok', '<b>Pedido enviado!</b><br>Se preferir agilizar, chame também no telefone ' +
+            '<a href="tel:' + CONFIG.phoneTel + '" style="color:inherit;text-decoration:underline">' + CONFIG.phoneDisplay + '</a>.');
+          loading(false);
+        }).catch(function () {
+          showStatus('bad', '<b>Não conseguimos enviar agora.</b><br>Tente de novo ou fale direto no ' +
+            '<a href="tel:' + CONFIG.phoneTel + '" style="color:inherit;text-decoration:underline">' + CONFIG.phoneDisplay + '</a>.');
+          loading(false);
+        });
+      });
+  });
+
+  /* ---------------------------------------------------------------
+     G. MIUDEZAS
+     --------------------------------------------------------------- */
+  var yearEl = $('#year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
